@@ -27,9 +27,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             shortUrl,
           },
         });
-        res.status(200).json({error: false, data: newUrl.shortUrl});
+        return res.status(200).json({error: false, data: newUrl.shortUrl});
       } catch (error: any) {
-        res.status(500).json({ error: true, message: error.message });
+        return res.status(500).json({ error: true, message: error.message });
       }
     }
 
@@ -48,10 +48,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.status(404).json({error: true, message: 'URL not found'});
         return;
       }
-      res.status(200).json({error: false, data: longUrl[0].longUrl});
+      return res.status(200).json({error: false, data: longUrl[0].longUrl});
     } 
 
     else {
-      res.status(405).json({ error: true, message: 'Method not allowed' });
+      return res.status(405).json({ error: true, message: 'Method not allowed' });
     }
   }
