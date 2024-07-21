@@ -24,7 +24,7 @@ export default function Home() {
       return;
     }
     try{
-      const response  = await axios.post('/api/urlshortener', {longUrl},
+      const response  = await axios.post('api/urlshortener', {longUrl},
         {
           headers: {
             'Content-Type': 'application/json'
