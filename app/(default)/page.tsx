@@ -4,15 +4,25 @@ import { useState } from "react";
 import copy_svg from '../../public/copy-svgrepo-com.svg'
 import axios from 'axios';
 import Spinner from "@/components/Spinner";
+import toast, { Toaster } from 'react-hot-toast';
+import '../globals.css'
 
 export default function Home() {
 
   const [longUrl, setLongUrl] = useState<string>('');
   const [shortenedUrl, setShortenedUrl] = useState<string | null>(null);
   const [Loading, setLoading] = useState<boolean>(false);
+  const [isLongUrlEmpty, setIsLongUrlEmpty] = useState<boolean>(false);
+  const [copiedToClipboard, setCopiedToClipboard] = useState<boolean>(false);
 
   const handleGenerate = async () => {
     setLoading(true);
+    if(!longUrl){
+      setIsLongUrlEmpty(true);
+      setLoading(false);
+      toast.error('Please enter a valid URL');
+      return;
+    }
     try{
       const response  = await axios.post('/api/inserturl', {longUrl},
         {
@@ -24,9 +34,16 @@ export default function Home() {
       setShortenedUrl(response.data.data);
     }
     catch(err){
-      console.log(err);
+      toast.error('An error occured. Please try again later');
     }
     setLoading(false);
+  }
+
+  const copyToClipboard = () => {
+    if(!shortenedUrl) return;
+    navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/${shortenedUrl}`);
+    toast.success('Copied to clipboard');
+    setCopiedToClipboard(true);
   }
 
   return (
@@ -34,8 +51,11 @@ export default function Home() {
       <div className="text-xl text-center">Url Shortener</div>
       <div className=" font-thin">Shorten your long URLs with one click</div>
       <div className="mt-4 flex gap-2 flex-col">
-        <input className="border border-[#c0c0c0] outline-none p-2 w-full h-[40px] rounded-lg"
-          onChange={(e)=>setLongUrl(e.target.value)}
+        <input className={`border border-[#c0c0c0] p-2 w-full h-[40px] rounded-lg ${isLongUrlEmpty ? 'shake' : 'outline-none'}`}
+          onChange={(e)=>{
+            setLongUrl(e.target.value)
+            setIsLongUrlEmpty(false);
+          }}
         />
         <button className="bg-black text-[#f3f4f5] h-[40px] w-full rounded-lg"
           onClick={()=>handleGenerate()}
@@ -47,17 +67,18 @@ export default function Home() {
       </div>
       <div className="p-1 flex flex-col gap-2">
           <div className="text-gray-500 mt-4">Your shortened URL:</div>
-          <div className="w-full h-[40px] rounded-lg p-2 flex justify-center items-center bg-gray-100">
+          <div className={`w-full h-[40px] rounded-lg p-2 flex justify-center items-center bg-gray-100  ${ copiedToClipboard ? 'border border-green-400':'border border-transparent'}`}>
             <div className="w-[240px] truncate">
               {
                 shortenedUrl ? `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${shortenedUrl}` : <span className="text-[#c0c0c0]">https://example.com/aadfasdfasdfasdfasdf</span>
               }
             </div>
-            <button className="w-[10%] m-2 flex justify-end">
+            <button className="w-[10%] m-2 flex justify-end" onClick={()=>copyToClipboard()}>
               <Image src={copy_svg} alt = "copy" className="h-[20px] w-[20px]"/>
             </button>
           </div>
       </div>
+      <Toaster position="top-right"/>
     </div>
   );
 }

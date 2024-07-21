@@ -15,6 +15,7 @@
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
+    "react-hot-toast": "^2.4.1",
     "vercel": "^35.1.0"
   },
   "devDependencies": {
