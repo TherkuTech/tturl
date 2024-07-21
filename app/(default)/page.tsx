@@ -1,15 +1,18 @@
 'use client';
 import Image from "next/image";
 import { useState } from "react";
-import copy from '../../public/copy-svgrepo-com.svg'
+import copy_svg from '../../public/copy-svgrepo-com.svg'
 import axios from 'axios';
+import Spinner from "@/components/Spinner";
 
 export default function Home() {
 
   const [longUrl, setLongUrl] = useState<string>('');
   const [shortenedUrl, setShortenedUrl] = useState<string | null>(null);
+  const [Loading, setLoading] = useState<boolean>(false);
 
   const handleGenerate = async () => {
+    setLoading(true);
     try{
       const response  = await axios.post('/api/inserturl', {longUrl},
         {
@@ -23,6 +26,7 @@ export default function Home() {
     catch(err){
       console.log(err);
     }
+    setLoading(false);
   }
 
   // psql "postgres://default:Gg2QcqSPF9Ll@ep-proud-salad-a147aj8o.ap-southeast-1.aws.neon.tech:5432/verceldb?sslmode=require"
@@ -37,7 +41,9 @@ export default function Home() {
         <button className="bg-black text-[#f3f4f5] h-[40px] w-full rounded-lg"
           onClick={()=>handleGenerate()}
         >
-          Generate
+          {
+            Loading ? <Spinner/> : 'Generate'
+          }
         </button>
       </div>
       <div className="p-1 flex flex-col gap-2">
@@ -49,7 +55,7 @@ export default function Home() {
               }
             </div>
             <button className="w-[10%] m-2 flex justify-end">
-              <Image src={copy} alt = "copy" className="h-[20px] w-[20px]"/>
+              <Image src={copy_svg} alt = "copy" className="h-[20px] w-[20px]"/>
             </button>
           </div>
       </div>
