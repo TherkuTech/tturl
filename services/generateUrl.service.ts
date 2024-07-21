@@ -14,7 +14,14 @@ const isLongUrlExists = async (longUrl: string): Promise<Response> => {
     };
     try {
         const url = await prisma.url.findFirst({ where: { longUrl } });
-        response.data = url?.shortUrl;
+        if (url) {
+            response.error = false;
+            response.data = url?.shortUrl;
+        }
+        else{
+            response.error = true;
+            response.data = null;
+        }
     } catch (err: any) {
         response.error = true;
         response.data = err.message;

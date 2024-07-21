@@ -43,9 +43,9 @@ export default function Home() {
       <div className="p-1 flex flex-col gap-2">
           <div className="text-gray-500 mt-4">Your shortened URL:</div>
           <div className="w-full h-[40px] rounded-lg p-2 flex justify-center items-center bg-gray-100">
-            <div className=" w-[90%] max-w-[250px] truncate">
+            <div className="w-[240px] truncate">
               {
-                shortenedUrl ? shortenedUrl : <span className="text-[#c0c0c0]">https://example.com/aadfasdfasdfasdfasdf</span>
+                shortenedUrl ? `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${shortenedUrl}` : <span className="text-[#c0c0c0]">https://example.com/aadfasdfasdfasdfasdf</span>
               }
             </div>
             <button className="w-[10%] m-2 flex justify-end">
