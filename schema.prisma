@@ -1,0 +1,16 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Url {
+    id       String    @id @default(auto()) @map("_id") @db.ObjectId
+    longUrl     String
+    shortUrl    String
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+}
