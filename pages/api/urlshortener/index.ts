@@ -50,7 +50,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
       return res.status(200).json({error: false, data: longUrl[0].longUrl});
     } 
-
     else {
       return res.status(405).json({ error: true, message: 'Method not allowed' });
     }
