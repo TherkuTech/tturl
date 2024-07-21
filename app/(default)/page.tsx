@@ -29,7 +29,6 @@ export default function Home() {
     setLoading(false);
   }
 
-  // psql "postgres://default:Gg2QcqSPF9Ll@ep-proud-salad-a147aj8o.ap-southeast-1.aws.neon.tech:5432/verceldb?sslmode=require"
   return (
     <div>
       <div className="text-xl text-center">Url Shortener</div>
