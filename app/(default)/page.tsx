@@ -24,7 +24,7 @@ export default function Home() {
       return;
     }
     try{
-      const response  = await axios.post('/api/inserturl', {longUrl},
+      const response  = await axios.post('/api/urlshortener', {longUrl},
         {
           headers: {
             'Content-Type': 'application/json'
@@ -34,7 +34,7 @@ export default function Home() {
       setShortenedUrl(response.data.data);
     }
     catch(err){
-      toast.error('An error occured. Please try again later');
+      toast.error('Couldnt generate now. Please try again later');
     }
     setLoading(false);
   }

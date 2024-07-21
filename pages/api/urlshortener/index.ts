@@ -16,7 +16,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const isLongAvailable = await isLongUrlExists(longUrl);
 
         if(!isLongAvailable.error){
-            console.log('Short URL:', isLongAvailable);
             return res.status(200).json({error: false, data: isLongAvailable.data});
         }
 
@@ -28,13 +27,31 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             shortUrl,
           },
         });
-        console.log('New URL:', newUrl);
         res.status(200).json({error: false, data: newUrl.shortUrl});
       } catch (error: any) {
-        console.error('Error inserting URL:', error);
         res.status(500).json({ error: true, message: error.message });
       }
-    } else {
+    }
+
+    else if(req.method === 'GET'){
+      const { shortUrl } = req.query;
+      if(!shortUrl){
+        res.status(400).json({error: true, message: 'Missing shortUrl'});
+        return;
+      }
+      const longUrl = await prisma.url.findMany({
+        where: {
+          shortUrl: shortUrl as string
+        }
+      });
+      if(longUrl.length === 0){
+        res.status(404).json({error: true, message: 'URL not found'});
+        return;
+      }
+      res.status(200).json({error: false, data: longUrl[0].longUrl});
+    } 
+
+    else {
       res.status(405).json({ error: true, message: 'Method not allowed' });
     }
   }
