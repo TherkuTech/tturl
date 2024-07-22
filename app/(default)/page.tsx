@@ -1,6 +1,6 @@
 'use client';
 import Image from "next/image";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import copy_svg from '../../public/copy-svgrepo-com.svg'
 import axios from 'axios';
 import Spinner from "@/components/Spinner";
@@ -15,7 +15,8 @@ export default function Home() {
   const [isLongUrlEmpty, setIsLongUrlEmpty] = useState<boolean>(false);
   const [copiedToClipboard, setCopiedToClipboard] = useState<boolean>(false);
 
-  const handleGenerate = async () => {
+  const handleGenerate = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setLoading(true);
     if(!longUrl){
       setIsLongUrlEmpty(true);
@@ -47,7 +48,7 @@ export default function Home() {
   }
 
   return (
-    <div>
+    <form onSubmit={(e)=>{handleGenerate(e)}}>
       <div className="text-xl text-center">Url Shortener</div>
       <div className=" font-thin">Shorten your long URLs with one click</div>
       <div className="mt-4 flex gap-2 flex-col">
@@ -58,7 +59,7 @@ export default function Home() {
           }}
         />
         <button className="bg-black text-[#f3f4f5] h-[40px] w-full rounded-lg"
-          onClick={()=>handleGenerate()}
+          type="submit"
         >
           {
             Loading ? <Spinner/> : 'Generate'
@@ -73,12 +74,12 @@ export default function Home() {
                 shortenedUrl ? `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${shortenedUrl}` : <span className="text-[#c0c0c0]">https://example.com/aadfasdfasdfasdfasdf</span>
               }
             </div>
-            <button className="w-[10%] m-2 flex justify-end" onClick={()=>copyToClipboard()}>
+            <button className="w-[10%] m-2 flex justify-end" onClick={()=>copyToClipboard()} type="button">
               <Image src={copy_svg} alt = "copy" className="h-[20px] w-[20px]"/>
             </button>
           </div>
       </div>
       <Toaster position="top-right"/>
-    </div>
+    </form>
   );
 }

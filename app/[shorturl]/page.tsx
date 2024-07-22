@@ -3,6 +3,7 @@ import Spinner from '@/components/Spinner';
 import axios from 'axios'
 import React, { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import Filler from '@/components/Filler';
 
 
 interface LongUrlState {
@@ -43,7 +44,8 @@ const Page = ({params}: {params: {shorturl: string}}) => {
   return (
     <div>
         {
-            longUrl.needToLoad ? <Spinner/> : longUrl.isValid ? <p>Redirecting...</p> : <p>oops 404</p>
+            !longUrl.needToLoad && !longUrl.isValid ? 
+                "Oops 404": <Filler/>
         }
     </div>
   )
