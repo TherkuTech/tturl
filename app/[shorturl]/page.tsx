@@ -20,13 +20,15 @@ const Page = ({params}: {params: {shorturl: string}}) => {
             const response = await axios.get(`api/urlshortener?shortUrl=${params.shorturl}`)
             console.log(response.data.data)
             const url = response.data.data;
-            if(url.startsWith('http://www.' || url.startsWith('https://www.'))){
-                window.location.href = response.data.data;
+            if(url.startsWith('http://www.')|| url.startsWith('https://www.')){
+                window.location.href = url;
                 setLongUrl({isValid: true, needToLoad: false})
                 return
             }
-            window.location.href = `http://www.${url}`;
-            setLongUrl({isValid: true, needToLoad: false})
+            else {
+                window.location.href = `https://www.${url}`;
+                setLongUrl({isValid: true, needToLoad: false})
+            }
         }
         catch(err: any){
             console.log(err.message)
