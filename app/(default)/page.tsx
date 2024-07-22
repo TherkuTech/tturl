@@ -55,6 +55,7 @@ export default function Home() {
         <input className={`border border-[#c0c0c0] p-2 w-full h-[40px] rounded-lg ${isLongUrlEmpty ? 'shake' : 'outline-none'}`}
           onChange={(e)=>{
             setLongUrl(e.target.value)
+            setCopiedToClipboard(false);
             setIsLongUrlEmpty(false);
           }}
         />
