@@ -8,7 +8,7 @@ const Filler = () => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % languages.length);
-    }, 100);
+    }, 150);
 
     return () => clearInterval(intervalId);
   }, []);
