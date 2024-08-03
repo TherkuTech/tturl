@@ -2,21 +2,6 @@
 
 TTURL is a simple and efficient URL shortener built with Next.js that allows you to shorten your URLs in just one click.
 
-## Table of Contents
-
-- [Features](#features)
-- [Demo](#demo)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Running the Application](#running-the-application)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
-
-## Features
-
 - One-click URL shortening
 - Customizable short links
 - Real-time analytics (click counts, referrers)
@@ -24,7 +9,7 @@ TTURL is a simple and efficient URL shortener built with Next.js that allows you
 
 ## Demo
 
-Check out the live demo [here](#) (replace with your live demo URL).
+Check out the live demo [here](https://tturl.vercel.app/) (replace with your live demo URL).
 
 ## Getting Started
 
