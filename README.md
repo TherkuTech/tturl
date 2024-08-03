@@ -1,5 +1,39 @@
-Shorten your URLs in one click
+# TTURL - URL Shortener
 
+TTURL is a simple and efficient URL shortener built with Next.js that allows you to shorten your URLs in just one click.
+
+## Table of Contents
+
+- [Features](#features)
+- [Demo](#demo)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Running the Application](#running-the-application)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+
+## Features
+
+- One-click URL shortening
+- Customizable short links
+- Real-time analytics (click counts, referrers)
+- User-friendly interface
+
+## Demo
+
+Check out the live demo [here](#) (replace with your live demo URL).
+
+## Getting Started
+
+Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/en/) (version 14.x or later)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
@@ -37,3 +71,20 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+***Usage***
+To shorten a URL:
+
+Enter the URL you want to shorten in the input field.
+Click the "Shorten" button.
+Copy the generated short URL and share it!
+
+***Contributing***
+Contributions are welcome! Please follow these steps to contribute:
+
+Fork the repository.
+Create a new branch (git checkout -b feature/your-feature-name).
+Make your changes.
+Commit your changes (git commit -m 'Add some feature').
+Push to the branch (git push origin feature/your-feature-name).
+Open a pull request.
