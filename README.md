@@ -22,6 +22,17 @@ Follow these instructions to get a copy of the project up and running on your lo
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Create your env file
+
+create .env file and add these variables
+DATABASE_URL = 'your mongodb url'
+NEXT_PUBLIC_FRONTEND_URL = http://localhost:3000
+
+## Generate prisma
+
+Use this command to Generate Prisma Client.. make sure you are in the rood dir of the project
+```npx prisma generate```
+
 ## Getting Started
 
 First, run the development server:
