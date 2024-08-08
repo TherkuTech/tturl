@@ -95,15 +95,17 @@ git push origin <branch>
 
 Step 11: Create a pull request!
 
+Subsequently, also go through the GitHub documentation on [creating a pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
+
 <hr>
 
 ## Style Guide for Commits
-
 
 The commit message should be:
 
 ```sh
 git commit -m "[Resource] Add <name>"
 ```
-
 <hr>
+
+
