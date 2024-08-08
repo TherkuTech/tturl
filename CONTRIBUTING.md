@@ -55,38 +55,45 @@ Step 4: Install the required dependencies
 ```sh
 npm install
 ```
+step 5 : Generate prisma
 
-Step 5: Create and switch to a new branch
+Use this command to Generate Prisma Client.. make sure you are in the rood dir of the project
+
+```sh
+npx prisma generate
+```
+
+Step 6: Create and switch to a new branch
 
 ```sh
 git switch -c <branch>
 ```
 
-Step 6: Launch the website on `localhost:3000`
+Step 7: Launch the website on `localhost:3000`
 
 ```sh
 npm start
 ```
 
-Step 7: Make changes to the project and stage them
+Step 8: Make changes to the project and stage them
 
 ```sh
 git add .
 ```
 
-Step 8: Commit the changes
+Step 9: Commit the changes
 
 ```sh
 git commit -m "<message>"
 ```
 
-Step 9: Push the changes to the corresponding remote branch
+Step 10: Push the changes to the corresponding remote branch
 
 ```sh
 git push origin <branch>
 ```
 
-Step 10: Create a pull request!
+Step 11: Create a pull request!
 
 <hr>
 
