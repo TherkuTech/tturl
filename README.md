@@ -31,6 +31,7 @@ NEXT_PUBLIC_FRONTEND_URL = http://localhost:3000
 ## Generate prisma
 
 Use this command to Generate Prisma Client.. make sure you are in the rood dir of the project
+
 ```npx prisma generate```
 
 ## Getting Started
