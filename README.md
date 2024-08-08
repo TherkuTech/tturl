@@ -12,7 +12,7 @@ TTURL is a simple and efficient URL shortener built with Next.js that allows you
 Check out the live demo [here](https://tturl.vercel.app/) (replace with your live demo URL).
 
 ## Contribution
-Please go through the [CONTRIBUTING](https://github.com/Sriparno08/Openpedia/blob/main/CONTRIBUTING.md) guide for details.
+Please go through the [CONTRIBUTING](https://github.com/TherkuTech/tturl/blob/main/CONTRIBUTING.md) guide for details.
 
 ## Getting Started
 
