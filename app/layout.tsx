@@ -9,7 +9,9 @@ export const metadata: Metadata = {
 
   description: "Shorten URLs in one click",
   keywords: "URL shortener, shorten URLs, free URL shortener",
-  icons: "/assests/logo.png", 
+  icons: {
+    icon: "/assests/logo.png"
+  },
   openGraph: {
     title: "tturl",
     description: "Shorten URLs in one click",
