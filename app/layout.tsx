@@ -6,8 +6,10 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "tturl",
+
   description: "Shorten URLs in one click",
   keywords: "URL shortener, shorten URLs, free URL shortener",
+  icons: "/assests/logo.png", 
   openGraph: {
     title: "tturl",
     description: "Shorten URLs in one click",
@@ -26,6 +28,7 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+
   },
 };
 
