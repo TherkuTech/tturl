@@ -7,6 +7,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "tturl",
   description: "shorten urls in one click",
+  icons: {
+    icon: "/assests/logo.png", 
+  },
 };
 
 export default function RootLayout({
