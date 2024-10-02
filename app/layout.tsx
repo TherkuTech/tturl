@@ -4,23 +4,26 @@ import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
+//fallback url
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://tturl.netlify.app";
+
 export const metadata: Metadata = {
   title: "tturl",
-
   description: "Shorten URLs in one click",
   keywords: "URL shortener, shorten URLs, free URL shortener",
   icons: {
-    icon: "/assests/logo.png"
+    icon: "/assets/logo.png",
   },
+  metadataBase: new URL(baseUrl),
   openGraph: {
     title: "tturl",
     description: "Shorten URLs in one click",
-    url: "https://tturl.netlify.app",
+    url: baseUrl,
     type: "website",
     siteName: "tturl",
     images: [
       {
-        url: "https://tturl.netlify.app/og-image.jpg", 
+        url: `${baseUrl}/og-image.jpg`,
         width: 1200,
         height: 630,
         alt: "tturl - Shorten URLs",
@@ -30,7 +33,6 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-
   },
 };
 
@@ -47,8 +49,8 @@ export default function RootLayout({
         <meta name="robots" content="index, follow" />
         <meta property="og:title" content="tturl" />
         <meta property="og:description" content="TTURL - One Click URL Shortener." />
-        <meta property="og:url" content="https://tturl.netlify.app" />
-        <meta property="og:image" content="https://tturl.netlify.app/og-image.jpg" />
+        <meta property="og:url" content={baseUrl} />
+        <meta property="og:image" content={`${baseUrl}/og-image.jpg`} />
         <meta name="description" content="TTURL - One Click URL Shortener." />
         <meta name="keywords" content="URL shortener, shorten URLs, free URL shortener" />
         <title>tturl</title>
