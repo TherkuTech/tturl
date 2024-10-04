@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://tturl.netlify.app
+
+# Sitemaps
+Sitemap: https://tturl.netlify.app/sitemap.xml
