@@ -4,6 +4,7 @@ import "./globals.css";
 import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
 import BackgroundProvider from "@/providers/backgroundProvider";
 import Navbar from "@/components/ui/navbar";
+import ThemeProvider from "./provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -60,9 +61,14 @@ export default function RootLayout({
       </head>
       
       <body className={inter.className}>
+      <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+        >
       <Navbar />
-      <BackgroundProvider>{children}
-      </BackgroundProvider>
+      <BackgroundProvider>{children}</BackgroundProvider>
+      </ThemeProvider>
       </body>
     </html>
   );
