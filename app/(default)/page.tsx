@@ -6,7 +6,11 @@ import axios from "axios";
 import Spinner from "@/components/Spinner";
 import toast, { Toaster } from "react-hot-toast";
 import "../globals.css";
-import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
+
+interface StoredUrl {
+  longUrl: string;
+  shortenedUrl: string;
+}
 
 export default function Home() {
   const [longUrl, setLongUrl] = useState<string>("");
@@ -34,12 +38,40 @@ export default function Home() {
           },
         }
       );
-      setShortenedUrl(response.data.data);
+
+      const newShortenedUrl = response.data.data; // Get the shortened URL from response
+      setShortenedUrl(newShortenedUrl);
       toast.success("Your URL has been shortened successfully.");
+
+      // Store the generated short URL with the original long URL in local storage
+      storeUrlInLocalStorage(longUrl, newShortenedUrl);
     } catch (err) {
-      toast.error("Couldnt generate now. Please try again later");
+      toast.error("Couldn't generate now. Please try again later");
     }
     setLoading(false);
+  };
+
+  const storeUrlInLocalStorage = (
+    longUrl: string,
+    shortenedUrl: string
+  ): void => {
+    // Retrieve existing URLs from local storage
+    const storedUrlsJSON = localStorage.getItem("urlList");
+    let storedUrls: StoredUrl[] = [];
+
+    if (storedUrlsJSON) {
+      storedUrls = JSON.parse(storedUrlsJSON); // Parse only if not null
+    }
+
+    // Create a new URL object
+    const newUrl: StoredUrl = { longUrl, shortenedUrl };
+
+    // Add the new URL to the existing list without duplicates
+    if (!storedUrls.some((url) => url.shortenedUrl === shortenedUrl)) {
+      const updatedUrls = [...storedUrls, newUrl];
+      localStorage.setItem("urlList", JSON.stringify(updatedUrls)); // Save the updated URL list
+      console.log("Stored URLs:", updatedUrls); // For debugging
+    }
   };
 
   const copyToClipboard = () => {
@@ -52,7 +84,6 @@ export default function Home() {
   };
 
   return (
-    // bg-cover bg-center bg-no-repeat bg-[url('/mainBG.png')
     <div className={`relative`}>
       <h1 className="text-5xl font-bold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500 mb-8 pb-4">
         Shorten Your Looong Links :)
@@ -62,11 +93,7 @@ export default function Home() {
         streamlines your online experience.
       </p>
 
-      <form
-        onSubmit={(e) => {
-          handleGenerate(e);
-        }}
-      >
+      <form onSubmit={handleGenerate}>
         <div className="relative w-full max-w-xl">
           <input
             type="text"
@@ -107,7 +134,7 @@ export default function Home() {
             </div>
             <button
               className="ml-auto flex justify-end"
-              onClick={() => copyToClipboard()}
+              onClick={copyToClipboard}
               type="button"
             >
               <Image src={copy_svg} alt="copy" className="h-5 w-5" />
@@ -117,6 +144,5 @@ export default function Home() {
         <Toaster position="top-right" />
       </form>
     </div>
-
   );
 }
