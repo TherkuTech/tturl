@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
+import BackgroundProvider from "@/providers/backgroundProvider";
+import Navbar from "@/components/ui/navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -55,7 +58,12 @@ export default function RootLayout({
         <meta name="keywords" content="URL shortener, shorten URLs, free URL shortener" />
         <title>tturl</title>
       </head>
-      <body className={inter.className}>{children}</body>
+      
+      <body className={inter.className}>
+      <Navbar />
+      <BackgroundProvider>{children}
+      </BackgroundProvider>
+      </body>
     </html>
   );
 }

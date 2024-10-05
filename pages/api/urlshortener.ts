@@ -6,6 +6,7 @@ const prisma = new PrismaClient();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
+      console.log("hi")
       const { longUrl } = req.body;
 
         if (!longUrl) {
