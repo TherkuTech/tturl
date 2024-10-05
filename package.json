@@ -11,25 +11,30 @@
   },
   "dependencies": {
     "@prisma/client": "^5.17.0",
+    "@tabler/icons-react": "^3.19.0",
     "@vercel/postgres": "^0.9.0",
     "axios": "^1.7.2",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.11.0",
     "cookie": "^0.7.0",
     "next": "14.2.5",
     "next-sitemap": "^4.2.3",
     "react": "^18",
     "react-dom": "^18",
     "react-hot-toast": "^2.4.1",
+    "tailwind-merge": "^2.5.2",
     "vercel": "^35.1.0"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "autoprefixer": "^10.4.20",
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
-    "postcss": "^8",
+    "postcss": "^8.4.47",
     "prisma": "^5.17.0",
-    "tailwindcss": "^3.4.1",
+    "tailwindcss": "^3.4.13",
     "typescript": "^5"
   }
 }

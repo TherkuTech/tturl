@@ -13,6 +13,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
+    console.log("hi");
     const { longUrl } = req.body;
 
     if (!longUrl) {
