@@ -4,7 +4,6 @@ import {
   isLongUrlExists,
   generateShortUrl,
 } from "@/services/generateUrl.service";
-import { saveHistory } from "@/services/saveHistory";
 
 const prisma = new PrismaClient();
 
@@ -35,7 +34,6 @@ export default async function handler(
           shortUrl,
         },
       });
-      saveHistory(req, res, longUrl, shortUrl);
       return res.status(200).json({ error: false, data: newUrl.shortUrl });
     } catch (error: any) {
       return res.status(500).json({ error: true, message: error.message });
