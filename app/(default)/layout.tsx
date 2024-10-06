@@ -1,4 +1,5 @@
 import React from "react";
+import Navbar from "@/components/ui/navbar";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,8 +12,11 @@ export const metadata: Metadata = {
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className={`h-[100vh] w-[100vw] flex justify-center items-center`}>
-      <div className="rounded-lg">{children}</div>
+    <div className={`h-[100vh] w-[100vw] flex justify-start items-start`}>
+      <Navbar />
+      <div className={`h-[100vh] w-[100vw] flex justify-center items-center`}>
+        <div className="rounded-lg">{children}</div>
+      </div>
     </div>
   );
 };

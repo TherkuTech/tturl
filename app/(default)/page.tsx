@@ -98,7 +98,7 @@ export default function Home() {
 
   return (
     <div className={`relative transition-colors duration-150`}>
-      <h1 className="text-5xl font-bold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500 dark:from-purple-500 dark:to-green-500 mb-8 pb-4">
+      <h1 className="text-5xl font-bold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500 mb-8 pb-4">
         Shorten Your Looong Links :)
       </h1>
       <p className={`${!darkMode ? "text-black/70" : "text-white/70"} mb-8`}>
