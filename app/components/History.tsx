@@ -21,7 +21,7 @@ const History = () => {
   // Fetch URLs from localStorage when the component mounts
   useEffect(() => {
     getUrls();
-  }, [localStorage.getItem("urlList")]);
+  }, [storedUrls]);
 
   const getUrls = () => {
     const storedUrlsJSON = localStorage.getItem("urlList");
