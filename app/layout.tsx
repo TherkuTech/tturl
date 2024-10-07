@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <head>{/* ... (head content remains unchanged) */}</head>
       <body className={`${inter.className} flex flex-col min-h-screen`}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+        <ThemeProvider>
           <div className="fixed inset-0 z-0">
             <BackgroundBeamsWithCollision className="w-full h-full">
               {/* This empty fragment ensures the children prop is provided */}
