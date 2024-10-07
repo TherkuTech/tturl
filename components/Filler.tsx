@@ -14,8 +14,11 @@ const Filler = () => {
   }, []);
 
   return (
-    <div className=' text-4xl '>
-        {languages[currentIndex]}
+    <div className='w-full flex flex-col justify-center items-center gap-4'>
+      <div className=' text-4xl '>
+          {languages[currentIndex]}
+      </div>
+      <div className='text-md text-[#828282]'>Loading...</div>
     </div>
   );
 };
