@@ -4,6 +4,7 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Filler from "@/components/Filler";
+import Link from "next/link";
 
 interface LongUrlState {
   isValid: boolean;
@@ -43,8 +44,14 @@ const Page = ({ params }: { params: { shorturl: string } }) => {
   }, []);
 
   return (
-    <div>
+    <div className="h-screen w-screen flex justify-center items-center text-black bg-[#f4f5f6] relative">
       {!longUrl.needToLoad && !longUrl.isValid ? "Oops 404" : <Filler />}
+      <div className="absolute bottom-2 flex gap-2">
+        <div className=" opacity-50">
+          TTurl is an open-source project of
+        </div>
+        <Link href="https://github.com/TherkuTech/tturl" className=" text-blue-700">Therku Tech</Link>
+      </div>
     </div>
   );
 };
