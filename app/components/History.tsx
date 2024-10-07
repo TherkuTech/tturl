@@ -4,8 +4,13 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "next-themes";
 
+interface UrlObject {
+  shortenedUrl: string;
+  longUrl: string;
+}
+
 const History = () => {
-  const [storedUrls, setStoredUrls] = useState([]); // Initialize as empty array
+  const [storedUrls, setStoredUrls] = useState<UrlObject[]>([]); // Initialize as empty array with proper typing
   const { systemTheme, theme } = useTheme();
   const currentTheme = theme === "dark" ? systemTheme : theme;
 
@@ -30,13 +35,13 @@ const History = () => {
     }
   };
 
-  const handlePreview = (url) => {
+  const handlePreview = (url: string) => {
     const fullUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${url}`;
     window.open(fullUrl, "_blank");
   };
 
   // Utility function to truncate long URLs
-  const truncateUrl = (url, maxLength = 30) => {
+  const truncateUrl = (url: string, maxLength = 30) => {
     if (url.length > maxLength) {
       return url.substring(0, maxLength) + "...";
     }
@@ -77,7 +82,7 @@ const History = () => {
                   </p>
                   <p className="text-sm font-medium text-white">
                     <span className="font-semibold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500 mb-8 pb-4">
-                      Orignal URL:
+                      Original URL:
                     </span>{" "}
                     {truncateUrl(urlObj.longUrl)}
                   </p>
