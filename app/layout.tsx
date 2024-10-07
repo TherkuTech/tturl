@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
-import Navbar from "@/components/ui/navbar";
 import ThemeProvider from "./provider";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -31,7 +30,6 @@ export default function RootLayout({
             </BackgroundBeamsWithCollision>
           </div>
           <div className="relative z-10 flex flex-col min-h-screen">
-            <Navbar />
             <main className="flex-grow">{children}</main>
           </div>
         </ThemeProvider>
