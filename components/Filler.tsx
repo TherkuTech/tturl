@@ -14,7 +14,7 @@ const Filler = () => {
   }, []);
 
   return (
-    <div className=' text-4xl'>
+    <div className=' text-4xl '>
         {languages[currentIndex]}
     </div>
   );

@@ -43,7 +43,7 @@ const Page = ({ params }: { params: { shorturl: string } }) => {
   }, []);
 
   return (
-    <div>
+    <div className="h-screen w-screen flex justify-center items-center text-black bg-[#f4f5f6]">
       {!longUrl.needToLoad && !longUrl.isValid ? "Oops 404" : <Filler />}
     </div>
   );
