@@ -12,9 +12,13 @@ export const metadata: Metadata = {
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className={`h-[100vh] w-[100vw] flex justify-start items-start`}>
+    <div
+      className={`h-fit min-h-screen w-[100vw] flex justify-start items-start`}
+    >
       <Navbar />
-      <div className={`h-[100vh] w-[100vw] flex justify-center items-center`}>
+      <div
+        className={`h-[100vh] w-[100vw] flex justify-center items-start pt-[30vh] overflow-x-hidden`}
+      >
         <div className="rounded-lg">{children}</div>
       </div>
     </div>

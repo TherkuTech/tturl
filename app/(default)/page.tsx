@@ -7,6 +7,7 @@ import Spinner from "@/components/Spinner";
 import toast, { Toaster } from "react-hot-toast";
 import "../globals.css";
 import { useTheme } from "next-themes";
+import History from "../components/History";
 
 interface StoredUrl {
   longUrl: string;
@@ -174,6 +175,7 @@ export default function Home() {
         </div>
         <Toaster position="top-right" />
       </form>
+      <History />
     </div>
   );
 }
