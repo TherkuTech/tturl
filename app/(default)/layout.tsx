@@ -15,7 +15,6 @@ const layout = ({ children }: { children: React.ReactNode }) => {
     <div className={`h-[100vh] w-[100vw] flex justify-center items-center px-10 lg:px-0`}>
       <Navbar />
        <div className="rounded-lg">{children}</div>
-      </div>
     </div>
   );
 };
