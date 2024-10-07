@@ -97,16 +97,18 @@ export default function Home() {
   // console.log(darkMode)
 
   return (
-    <div className={`relative transition-colors duration-150`}>
-      <h1 className="text-5xl font-bold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500 dark:from-purple-500 dark:to-green-500 mb-8 pb-4">
-        Shorten Your Looong Links :)
+    <div className={`relative transition-colors duration-150 max-w-[600px]`}>
+      <h1 className="text-5xl font-bold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500 dark:from-purple-500 dark:to-green-500 mb-8 pb-4 text-center">
+        Shorten Your Long Url <br/> in one click
       </h1>
-      <p className={`${!darkMode ? "text-black/70" : "text-white/70"} mb-8`}>
-        TTURL is an efficient and easy-to-use URL shortening service that
-        streamlines your online experience.
-      </p>
+      {/* <p className={`${!darkMode ? "text-black/70" : "text-white/70"} mb-8`}>
+        in one click
+      </p> */}
 
       <form onSubmit={handleGenerate}>
+        <div className={`${!darkMode ? "text-black/70" : "text-white/70"} mb-3 pl-1 `}>
+          Your shortened URL:
+        </div>
         <div className="relative w-full max-w-xl">
           <input
             type="text"
@@ -115,7 +117,7 @@ export default function Home() {
               darkMode
                 ? "text-white/70 bg-gray-800 placeholder-gray-400"
                 : "text-black bg-neutral-400/45 placeholder-gray-500"
-            } rounded-full outline-none focus:ring-2 focus:ring-blue-500 ${
+            } rounded-xl outline-none focus:ring-2 focus:ring-blue-500 ${
               isLongUrlEmpty ? "shake" : "outline-none"
             }`}
             onChange={(e) => {
@@ -125,18 +127,18 @@ export default function Home() {
             }}
           />
           <button
-            className="absolute h-10 w-40 right-0 top-0 my-1 mr-1 px-6 py-2 bg-blue-600 dark:bg-blue-700 rounded-full text-white hover:bg-blue-500 dark:hover:bg-blue-600"
+            className="absolute h-10 w-30 right-0 top-0 my-1 mr-1 px-6 py-2 bg-blue-600 dark:bg-blue-700 rounded-xl text-white hover:bg-blue-500 dark:hover:bg-blue-600"
             type="submit"
           >
             {Loading ? <Spinner /> : "Shorten Now!"}
           </button>
         </div>
         <div className="flex flex-col gap-3 mt-6">
-          <div className={`${!darkMode ? "text-black/70" : "text-white/70"} `}>
+          <div className={`${!darkMode ? "text-black/70" : "text-white/70"} pl-1`}>
             Your shortened URL:
           </div>
           <div
-            className={`flex w-full h-12 rounded-md items-center px-4 ${
+            className={`flex w-full h-12 rounded-xl items-center px-4 ${
               darkMode
                 ? "text-white/70 bg-gray-800"
                 : "text-black bg-neutral-400/45"

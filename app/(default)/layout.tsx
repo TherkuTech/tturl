@@ -11,15 +11,10 @@ export const metadata: Metadata = {
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (
-<<<<<<< HEAD
     <div className={`h-[100vh] w-[100vw] flex justify-center items-center px-10 lg:px-0`}>
         <div className='rounded-lg'>
             {children}
         </div>
-=======
-    <div className={`h-[100vh] w-[100vw] flex justify-center items-center`}>
-      <div className="rounded-lg">{children}</div>
->>>>>>> c2e7ae12bdcfb8051ee16c56cff0521f9d2ce943
     </div>
   );
 };
