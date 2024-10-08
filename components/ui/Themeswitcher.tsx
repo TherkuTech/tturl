@@ -1,31 +1,29 @@
 "use client";
-import {useTheme} from "next-themes";
-import {useEffect, useState} from "react";
-const ThemeSwitcher = () => {
-  const [mount, setMount] = useState(false);
-  const {systemTheme, theme, setTheme} = useTheme();
-  const currentTheme = theme === "system" ? systemTheme : theme;
-  const [darkMode, setDarkMode] = useState(false);
-  useEffect(() => {
-    if(currentTheme==='dark'){
-      setDarkMode(true);
-    }
-    else{
-      setDarkMode(false);
-    }
-  },[currentTheme])
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
-  // console.log(themeCheck)
-  console.log(darkMode)
-  return  (
+const ThemeSwitcher = () => {
+  const [mounted, setMounted] = useState(false);
+  const { systemTheme, theme, setTheme } = useTheme();
+  
+  useEffect(() => {
+    // Ensure the theme is loaded correctly after mount
+    setMounted(true);
+  }, []);
+  
+  const currentTheme = theme === "system" ? systemTheme : theme;
+
+  if (!mounted) return null; // Don't render until the theme is mounted
+
+  return (
     <div className="z-50">
       <button
         onClick={() => setTheme(currentTheme === "dark" ? "light" : "dark")}
         type="button"
-        className={`flex h-10 w-10 p-2 items-center justify-center rounded-md border-2 focus:outline-none focus:ring-0 ${darkMode ? "border-gray-800 text-white  focus:ring-gray-200 dark:border-slate-300 dark:text-white" : "border-gray-800 text-black  focus:ring-gray-200 dark:border-slate-300 dark:text-white"} `}
+        className={`flex h-10 w-10 p-2 items-center justify-center rounded-md border-2 focus:outline-none focus:ring-0 ${currentTheme === "dark" ? "border-gray-800 text-white" : "border-gray-800 text-black"} `}
       >
         <svg
-          className="dark:hidden"
+          className={`${currentTheme === "dark" ? "hidden" : "block"}`}
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
@@ -33,7 +31,7 @@ const ThemeSwitcher = () => {
           <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
         </svg>
         <svg
-          className="hidden dark:block"
+          className={`${currentTheme === "dark" ? "block" : "hidden"}`}
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
@@ -48,4 +46,5 @@ const ThemeSwitcher = () => {
     </div>
   );
 };
+
 export default ThemeSwitcher;

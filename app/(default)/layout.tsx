@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "@/components/ui/navbar";
+import BackgroundProvider from "@/providers/backgroundProvider";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,16 +13,11 @@ export const metadata: Metadata = {
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div
-      className={`h-fit min-h-screen w-[100vw] flex justify-start items-start`}
-    >
-      <Navbar />
-      <div
-        className={`h-[100vh] w-[100vw] flex justify-center items-start pt-[30vh] overflow-x-hidden`}
-      >
-        <div className="rounded-lg">{children}</div>
-      </div>
-    </div>
+    <BackgroundProvider>
+    <div className={`h-[100vh] w-[100vw] flex justify-center items-center px-10 lg:px-0 relative`}>
+      <div className="fixed top-0 left-0"><Navbar/></div>
+       <div className="rounded-lg">{children}</div>
+    </div>  </BackgroundProvider>
   );
 };
 
