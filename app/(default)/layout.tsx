@@ -16,7 +16,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
   <BackgroundProvider>
     <div className={`h-screen w-screen flex justify-center items-center px-10 lg:px-0 relative overflow-y-auto overflow-x-hidden`}>
       <div className=" absolute top-0 left-0 z-10"><Navbar/></div>
-       <div className="rounded-lg mt-[25%]">{children}</div>
+       <div className="rounded-lg mt-[10%]">{children}</div>
     </div>
   </BackgroundProvider>
   );
