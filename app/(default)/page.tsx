@@ -100,14 +100,18 @@ export default function Home() {
   return (
     <div className={`relative transition-colors duration-150 max-w-[600px]`}>
       <h1 className="text-5xl font-bold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500 dark:from-purple-500 dark:to-green-500 mb-8 pb-4 text-center">
-        Shorten Your Long Url <br/> in one click
+        Shorten Your Long Url <br /> in one click
       </h1>
       {/* <p className={`${!darkMode ? "text-black/70" : "text-white/70"} mb-8`}>
         in one click
       </p> */}
 
       <form onSubmit={handleGenerate}>
-        <div className={`${!darkMode ? "text-black/70" : "text-white/70"} mb-3 pl-1 `}>
+        <div
+          className={`${
+            !darkMode ? "text-black/70" : "text-white/70"
+          } mb-3 pl-1 `}
+        >
           Your shortened URL:
         </div>
         <div className="relative w-full max-w-xl">
@@ -135,7 +139,9 @@ export default function Home() {
           </button>
         </div>
         <div className="flex flex-col gap-3 mt-6">
-          <div className={`${!darkMode ? "text-black/70" : "text-white/70"} pl-1`}>
+          <div
+            className={`${!darkMode ? "text-black/70" : "text-white/70"} pl-1`}
+          >
             Your shortened URL:
           </div>
           <div
