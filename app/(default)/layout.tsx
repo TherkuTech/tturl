@@ -3,6 +3,7 @@ import Navbar from "@/components/ui/navbar";
 import BackgroundProvider from "@/providers/backgroundProvider";
 import type { Metadata } from "next";
 
+
 export const metadata: Metadata = {
   title: "url-shortener",
   description: "shorten urls in one click",
