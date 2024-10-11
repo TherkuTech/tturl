@@ -50,9 +50,22 @@ const History = () => {
 
   return (
     <div className="mt-12">
-      <h1 className="text-3xl font-bold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500 mb-4 overflow-hidden">
-        History ;)
-      </h1>
+      <div className="flex justify-between">
+        <h1 className="text-3xl font-bold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500 mb-4 overflow-hidden">
+          History ;)
+        </h1>
+        <button
+          className="h-10 w-30 right-0 top-0 my-1 mr-1 px-6 py-2
+             bg-blue-600 dark:bg-blue-700 rounded-xl text-white hover:bg-blue-500 dark:hover:bg-blue-600 mb-3"
+          type="submit"
+          onClick={() => {
+            localStorage.clear();
+            window.location.reload();
+          }}
+        >
+          Clear All
+        </button>
+      </div>
 
       <AnimatePresence>
         {storedUrls.length > 0 ? (
