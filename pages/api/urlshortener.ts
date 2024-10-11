@@ -12,14 +12,12 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    console.log("hi");
-    const { longUrl } = req.body;
-
+    let { longUrl } = req.body;
+    longUrl = longUrl.replace(/^https:\/\/(www\.)?/, ""); // Removes 'https://' or 'https://www.' if present
     if (!longUrl) {
       res.status(400).json({ error: true, message: "Missing longUrl" });
       return;
     }
-
     const isLongAvailable = await isLongUrlExists(longUrl);
 
     if (!isLongAvailable.error) {
@@ -28,6 +26,7 @@ export default async function handler(
 
     try {
       const shortUrl = await generateShortUrl(longUrl);
+      console.log("shortUrl", shortUrl);
       const newUrl = await prisma.url.create({
         data: {
           longUrl,
