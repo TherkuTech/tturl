@@ -49,8 +49,8 @@ const History = () => {
   };
 
   return (
-    <div className="mt-12">
-      <div className="flex justify-between">
+    <div className="mt-12 overflow-y-scroll h-[200px] p-3">
+      <div className="flex justify-between ">
         <h1 className="text-3xl font-bold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500 mb-4 overflow-hidden">
           History ;)
         </h1>
