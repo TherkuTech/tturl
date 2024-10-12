@@ -102,7 +102,7 @@ export default function Home() {
             }}
           />
           <button
-            className="absolute h-10 w-30 right-0 top-0 my-1 mr-1 px-6 py-2 bg-blue-600 rounded-xl text-white hover:bg-blue-500 transition duration-150"
+            className="absolute h-10 w-30 right-0 flex justify-center items-center top-0 my-1 mr-1 px-6 py-2 bg-blue-600 rounded-xl text-white hover:bg-blue-500 transition duration-150"
             type="submit"
           >
             {Loading ? <Spinner /> : "Shorten Now!"}
