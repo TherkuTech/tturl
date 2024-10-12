@@ -2,7 +2,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useAnimation,useInView,motion } from "framer-motion"
 import { useEffect, useRef } from "react"
-import {LinkIcon,Zap,Shield} from 'lucide-react'
+import {LinkIcon,Zap,Shield, CheckCircle, ArrowBigDown, ArrowRight} from 'lucide-react'
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
 
 
 
@@ -101,7 +103,36 @@ const About = ()=>{
                 </AnimatedSection>
 
                 <AnimatedSection>
-                    
+                <div className="mb-16">
+                    <h2 className="text-3xl font-semibold mb-6 text-center text-purple-400">Why Choose Us?</h2>
+                    <div className="grid md:grid-cols-2 gap-4">
+                    {[
+                        "Custom branded links",
+                        "Comprehensive analytics",
+                        "Developer-friendly API",
+                        "24/7 expert support",
+                        "Flexible pricing plans"
+                    ].map((reason, index) => (
+                        <div key={index} className="flex items-center space-x-2 bg-gray-900/50 backdrop-blur-sm p-4 rounded-lg hover:bg-gray-900/70 transition-all duration-300">
+                        <CheckCircle className="text-green-500 flex-shrink-0 h-6 w-6" />
+                        <p className="text-gray-300 text-lg">{reason}</p>
+                        </div>
+                    ))}
+                    </div>
+                </div>
+                </AnimatedSection>
+
+                <AnimatedSection>
+                    <div className="text-center">
+                        <h2 className="text-3xl font-semibold mb-6 text-purple-400">Ready to Revolutionize your Links?</h2>
+                        <Link href={'/'}>
+                          <Button size="lg" className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 transition-all duration-300 font-semibold text-lg px-8 py-6 rounded-full">
+                            Get Started Now
+                            <ArrowRight className="ml-2 h-6 w-6"/>
+                          </Button>
+                        </Link>
+
+                    </div>
                 </AnimatedSection>
 
 
