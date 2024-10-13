@@ -2,7 +2,9 @@
 import { useTheme } from "next-themes";
 import ThemeSwitcher from "./Themeswitcher";
 import Image from "next/image";
+import Link from "next/link";
 import logo from "../../public/assests/logo.png";
+import { Info } from "lucide-react"; // Import the Info icon
 
 const Navbar = () => {
   const { theme, systemTheme } = useTheme();
@@ -25,6 +27,7 @@ const Navbar = () => {
       }`}
     >
       <header className="flex justify-between items-center p-6">
+        
         <div className="text-3xl font-bold text-gradient flex justify-center items-center gap-5 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-blue-500 dark:from-purple-500 dark:to-green-500">
           <div onClick={handleLogoClick} className="cursor-pointer">
             <Image
@@ -38,8 +41,22 @@ const Navbar = () => {
           <h2>TTURL</h2>
         </div>
 
+        
         <div className="flex gap-5 justify-center items-center">
+          
+          <Link href="/about">
+            <button
+              aria-label="About"
+              className=" bg-gradient-to-r from-blue-500 to-indigo-500 dark:from-green-500 dark:to-teal-500 rounded-full flex items-center justify-center text-white"
+            >
+              <Info size={25} />
+            </button>
+          </Link>
+
+          
           <ThemeSwitcher />
+
+         
           <button
             className="p-2 w-fit h-fit bg-gradient-to-r from-pink-500 to-blue-500 dark:from-purple-500 dark:to-green-500 rounded-md font-medium text-lg text-white"
             onClick={handleContribute}
