@@ -24,18 +24,24 @@ export default function Home() {
   const handleGenerate = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    if (!longUrl) {
+
+    if (!longUrl || !isValidUrl(longUrl)) {
       setIsLongUrlEmpty(true);
       setLoading(false);
       toast.error("Please enter a valid URL");
       return;
     }
+
     try {
-      const response = await axios.post("api/urlshortener", { longUrl }, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.post(
+        "api/urlshortener",
+        { longUrl },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       const newShortenedUrl = response.data.data; // Get the shortened URL from response
       setShortenedUrl(newShortenedUrl);
@@ -49,7 +55,10 @@ export default function Home() {
     setLoading(false);
   };
 
-  const storeUrlInLocalStorage = (longUrl: string, shortenedUrl: string): void => {
+  const storeUrlInLocalStorage = (
+    longUrl: string,
+    shortenedUrl: string
+  ): void => {
     const storedUrlsJSON = localStorage.getItem("urlList");
     let storedUrls: StoredUrl[] = [];
 
@@ -67,7 +76,9 @@ export default function Home() {
 
   const copyToClipboard = () => {
     if (!shortenedUrl) return;
-    navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/${shortenedUrl}`);
+    navigator.clipboard.writeText(
+      `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${shortenedUrl}`
+    );
     toast.success("Copied to clipboard");
     setCopiedToClipboard(true);
   };
@@ -80,25 +91,52 @@ export default function Home() {
     setDarkMode(currentTheme === "dark");
   }, [currentTheme]);
 
+  // Function to validate url
+  const isValidUrl = (url: string): boolean => {
+    const urlPattern = new RegExp(
+      "^(https?:\\/\\/)" + // Protocol
+        "([a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}|\\[[0-9a-fA-F:.]+\\])", // Domain
+      "i"
+    );
+    return !!urlPattern.test(url);
+  };
+
   return (
-    <div className={`relative transition-colors duration-150 max-w-[600px] bg-${darkMode ? 'gray-900' : 'white'} text-${darkMode ? 'white' : 'black'}`}>
+    <div
+      className={`relative transition-colors duration-150 max-w-[600px] bg-${
+        darkMode ? "gray-900" : "white"
+      } text-${darkMode ? "white" : "black"}`}
+    >
       <h1 className="text-5xl font-bold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500 mb-8 pb-4 text-center">
         Shorten Your Long Url <br /> in one click
       </h1>
 
       <form onSubmit={handleGenerate}>
-        <div className={`mb-3 pl-1 text-${darkMode ? 'white/70' : 'black/70'}`}>
+        <div className={`mb-3 pl-1 text-${darkMode ? "white/70" : "black/70"}`}>
           Your shortened URL:
         </div>
         <div className="relative w-full max-w-xl">
           <input
-            type="text"
+            type="url"
             placeholder="Enter the link here"
-            className={`w-full px-6 py-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 ${darkMode ? "text-white/70 bg-gray-800 placeholder-gray-400" : "text-black bg-neutral-400/45 placeholder-gray-500"}`}
+            className={`w-full px-6 py-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 ${
+              darkMode
+                ? "text-white/70 bg-gray-800 placeholder-gray-400"
+                : "text-black bg-neutral-400/45 placeholder-gray-500"
+            }`}
             onChange={(e) => {
-              setLongUrl(e.target.value);
+              const url = e.target.value;
+              setLongUrl(url);
               setCopiedToClipboard(false);
               setIsLongUrlEmpty(false);
+
+              if (isValidUrl(url)) {
+                console.log("Valid URL:", url);
+                // Additional logic for valid URL
+              } else {
+                console.log("Invalid URL");
+                // Handle invalid URL
+              }
             }}
           />
           <button
@@ -110,19 +148,41 @@ export default function Home() {
         </div>
 
         <div className="flex flex-col gap-3 mt-6">
-          <div className={`pl-1 text-${darkMode ? 'white/70' : 'black/70'}`}>
+          <div className={`pl-1 text-${darkMode ? "white/70" : "black/70"}`}>
             Your shortened URL:
           </div>
-          <div className={`flex w-full h-12 rounded-xl items-center px-4 transition duration-150 ${darkMode ? "bg-gray-800" : "bg-neutral-400/45"} ${copiedToClipboard ? "border border-green-500" : "border border-gray-700"}`}>
-            <div className={`w-[240px] truncate text-${darkMode ? 'white/70' : 'black/70'}`}>
+          <div
+            className={`flex w-full h-12 rounded-xl items-center px-4 transition duration-150 ${
+              darkMode ? "bg-gray-800" : "bg-neutral-400/45"
+            } ${
+              copiedToClipboard
+                ? "border border-green-500"
+                : "border border-gray-700"
+            }`}
+          >
+            <div
+              className={`w-[240px] truncate text-${
+                darkMode ? "white/70" : "black/70"
+              }`}
+            >
               {shortenedUrl ? (
                 `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${shortenedUrl}`
               ) : (
-                <span className="text-gray-500">https://example.com/aadfasdfasdfasdfasdf</span>
+                <span className="text-gray-500">
+                  https://example.com/aadfasdfasdfasdfasdf
+                </span>
               )}
             </div>
-            <button className="ml-auto flex justify-end" onClick={copyToClipboard} type="button">
-              <Image src={copy_svg} alt="copy" className="h-5 w-5 dark:invert" />
+            <button
+              className="ml-auto flex justify-end"
+              onClick={copyToClipboard}
+              type="button"
+            >
+              <Image
+                src={copy_svg}
+                alt="copy"
+                className="h-5 w-5 dark:invert"
+              />
             </button>
           </div>
         </div>
