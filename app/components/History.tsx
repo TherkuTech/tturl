@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "next-themes";
+import { ImCross } from "react-icons/im";
 
 interface UrlObject {
   shortenedUrl: string;
@@ -15,6 +16,7 @@ const History = () => {
   const currentTheme = theme === "dark" ? systemTheme : theme;
 
   const [darkMode, setDarkMode] = useState(false);
+
   useEffect(() => {
     if (currentTheme === "dark") {
       setDarkMode(true);
@@ -26,7 +28,7 @@ const History = () => {
   // Fetch URLs from localStorage when the component mounts
   useEffect(() => {
     getUrls();
-  }, [storedUrls]);
+  }, []);
 
   const getUrls = () => {
     const storedUrlsJSON = localStorage.getItem("urlList");
@@ -48,6 +50,34 @@ const History = () => {
     return url;
   };
 
+  // function to remove form locastorage and updated field on backend
+
+  const handleDeleteUrl = async (shortUrl: string) => {
+    try {
+      const response = await fetch("/api/deleteurl", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ shortUrl }),
+      });
+
+      const result = await response.json();
+      if (!result.error) {
+       
+        const storedUrls = JSON.parse(localStorage.getItem("urlList") || "[]"); 
+        const updatedUrls = storedUrls.filter(
+          (urlObj: { shortenedUrl: string }) => urlObj.shortenedUrl !== shortUrl
+        );
+        localStorage.setItem("urlList", JSON.stringify(updatedUrls)); 
+        getUrls(); 
+      } else {
+        console.error(result.message);
+      }
+    } catch (error) {
+      console.error("Failed to delete URL:", error);
+    }
+  };
   return (
     <div className="mt-12 overflow-y-scroll h-[200px] p-3">
       <div className="flex justify-between ">
@@ -60,6 +90,7 @@ const History = () => {
           type="submit"
           onClick={() => {
             localStorage.clear();
+            setStoredUrls([]); // Clear the state as well
             window.location.reload();
           }}
         >
@@ -86,7 +117,13 @@ const History = () => {
                 } rounded-2xl outline-none focus:ring-2 focus:ring-blue-500 
              `}
               >
-                <div>
+                <div className="p-4 ">
+                  <ImCross
+                    className="absolute top-[4%] right-[2%] cursor-pointer"
+                    title="delete"
+                    onClick={() => handleDeleteUrl(urlObj.shortenedUrl)}
+                  />
+
                   <p className="text-sm font-medium text-white">
                     <span className="font-bold text-base text-gradient bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500 mb-8 pb-4">
                       Shortened URL:
