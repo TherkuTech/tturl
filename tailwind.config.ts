@@ -9,6 +9,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        primary: '#6b46c1', // A shade of purple
+        secondary: '#4a5568', // A dark gray, close to black
+        background: '#1a202c', // Dark background
+        text: '#ffffff', // White text
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -18,4 +24,5 @@ const config: Config = {
   },
   plugins: [],
 };
+
 export default config;
