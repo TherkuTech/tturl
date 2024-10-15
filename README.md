@@ -97,7 +97,7 @@ Open a pull request.
 - Make sure you show some love by giving ⭐ to our repository.
 
 <div align="left">
-  <a href="https://github.com/AlfiyaSiddique/TastyTrails">
-    <img src="https://contrib.rocks/image?repo=AlfiyaSiddique/TastyTrails&&max=10" />
-  </a>
+  <a href="https://github.com/TherkuTech/tturl/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=TherkuTech/tturl" />
+</a>
 </div>
