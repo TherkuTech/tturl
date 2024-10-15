@@ -45,7 +45,25 @@ const Page = ({ params }: { params: { shorturl: string } }) => {
 
   return (
     <div className="h-screen w-screen flex justify-center items-center text-black bg-[#f4f5f6] relative">
-      {!longUrl.needToLoad && !longUrl.isValid ? "Oops 404" : <Filler />}
+      {!longUrl.needToLoad && !longUrl.isValid ? (
+        <div className="text-center max-w-md mx-auto">
+          <h1 className="text-3xl font-bold mb-4">Oops! Page Not Found</h1>
+          <p className="mb-6">The short URL you're trying to access doesn't exist or has expired. Don't worry, it happens to the best of us!</p>
+          <div className="flex justify-center space-x-4">
+            <Link href="/" className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+              Go to Homepage
+            </Link>
+            <button
+              onClick={fetchUrl}
+              className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
+            >
+              Try Again
+            </button>
+          </div>
+        </div>
+      ) : (
+        <Filler />
+      )}
       <div className="absolute bottom-2 flex gap-2">
         <div className=" opacity-50">
           TTurl is an open-source project of
