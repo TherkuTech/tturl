@@ -13,7 +13,7 @@ interface UrlObject {
 }
 
 const History = () => {
-  const { storedUrls } = useLocalStorage("urlList"); // Use the custom hook
+  const { storedUrls, removeUrl } = useLocalStorage("urlList"); // Use the custom hook
   const { systemTheme, theme } = useTheme();
   const currentTheme = theme === "dark" ? systemTheme : theme;
 
@@ -51,12 +51,7 @@ const History = () => {
 
       const result = await response.json();
       if (!result.error) {
-        const storedUrls = JSON.parse(localStorage.getItem("urlList") || "[]");
-        const updatedUrls = storedUrls.filter(
-          (urlObj: { shortenedUrl: string }) => urlObj.shortenedUrl !== shortUrl
-        );
-        localStorage.setItem("urlList", JSON.stringify(updatedUrls));
-       // getUrls();
+        removeUrl(shortUrl); // Use the custom hook to update stored URLs
       } else {
         console.error(result.message);
       }
