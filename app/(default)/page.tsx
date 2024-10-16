@@ -8,6 +8,8 @@ import toast, { Toaster } from "react-hot-toast";
 import "../globals.css";
 import { useTheme } from "next-themes";
 import History from "../components/History";
+import  Footer from "../components/Footer";
+
 
 interface StoredUrl {
   longUrl: string;
@@ -187,6 +189,7 @@ export default function Home() {
         <Toaster position="top-right" />
       </form>
       <History />
+      <Footer/>
     </div>
   );
 }
