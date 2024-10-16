@@ -68,7 +68,7 @@ export default function Home() {
         if (storedUrlsJSON) {
             storedUrls = JSON.parse(storedUrlsJSON);
         }
-
+      
         const newUrl: StoredUrl = { longUrl, shortenedUrl };
 
         if (!storedUrls.some((url) => url.shortenedUrl === shortenedUrl)) {
