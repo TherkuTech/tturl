@@ -29,9 +29,9 @@ const ThemeToggleSwitch = () => {
         }`}
       >
         {currentTheme === "dark" ? (
-          <BsFillMoonFill className="text-yellow-300 m-1" />
+          <BsFillMoonFill className="text-yellow-300 m-0.5" />
         ) : (
-          <BsFillSunFill className="text-yellow-500 m-1" />
+          <BsFillSunFill className="text-yellow-500 m-0.5" />
         )}
       </div>
     </button>

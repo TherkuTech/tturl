@@ -20,11 +20,11 @@ const Navbar = () => {
 
   return (
     <div
-      className={`border-b z-50 absolute w-screen border-gray-800 ${
-        currentTheme === "dark" ? "bg-neutral-900" : "bg-white/60"
+      className={`z-50 absolute w-screen border-gray-800 ${
+        currentTheme === "dark" ? "bg-neutral-900" : "bg-custom-gradient"
       }`}
     >
-      <header className="flex justify-between items-center p-6">
+      <header className="flex justify-between items-center py-6 px-12">
         <div className="text-3xl font-bold text-gradient flex justify-center items-center gap-5 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-blue-500 dark:from-purple-500 dark:to-green-500">
           <div onClick={handleLogoClick} className="cursor-pointer">
             <Image
@@ -38,10 +38,10 @@ const Navbar = () => {
           <h2>TTURL</h2>
         </div>
 
-        <div className="flex gap-5 justify-center items-center">
+        <div className="flex gap-5 justify-center items-center ">
           <ThemeSwitcher />
           <button
-            className="p-2 w-fit h-fit bg-gradient-to-r from-pink-500 to-blue-500 dark:from-purple-500 dark:to-green-500 rounded-md font-medium text-lg text-white"
+            className="px-6 py-3 w-fit h-fit bg-gradient-to-r from-pink-500 to-blue-500 dark:from-purple-500 dark:to-green-500 rounded-md font-medium text-sm text-white"
             onClick={handleContribute}
           >
             Contribute
