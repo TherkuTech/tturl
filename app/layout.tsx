@@ -12,7 +12,7 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://tturl.netlify.app";
 export const metadata: Metadata = {
   // ... (metadata remains unchanged)
 };
-
+<body className={`${inter.className} flex flex-col min-h-screen overflow-hidden`}> </body>
 export default function RootLayout({
   children,
 }: Readonly<{
