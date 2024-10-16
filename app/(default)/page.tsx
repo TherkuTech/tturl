@@ -21,9 +21,6 @@ export default function Home() {
     const [Loading, setLoading] = useState<boolean>(false);
     const [isLongUrlEmpty, setIsLongUrlEmpty] = useState<boolean>(false);
     const [copiedToClipboard, setCopiedToClipboard] = useState<boolean>(false);
-    const { systemTheme, theme } = useTheme();
-    const currentTheme = theme === "dark" ? systemTheme : theme;
-    const [darkMode, setDarkMode] = useState(false);
     const [qrCodeData, setQrCodeData] = useState<string | null>(null);
     const SIZE: number = 380;
 
@@ -89,9 +86,13 @@ export default function Home() {
         setCopiedToClipboard(true);
     };
 
+    const { theme, setTheme } = useTheme();
+    const [darkMode, setDarkMode] = useState(true); // Default to dark mode
+
     useEffect(() => {
-        setDarkMode(currentTheme === "dark");
-    }, [currentTheme]);
+        // Force dark mode on initial load
+        setTheme("dark");
+    }, [setTheme]);
 
     // Function to validate url
     const isValidUrl = (url: string): boolean => {
