@@ -83,13 +83,13 @@ export default function Home() {
     setCopiedToClipboard(true);
   };
 
-  const { systemTheme, theme } = useTheme();
-  const currentTheme = theme === "dark" ? systemTheme : theme;
-  const [darkMode, setDarkMode] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const [darkMode, setDarkMode] = useState(true); // Default to dark mode
 
   useEffect(() => {
-    setDarkMode(currentTheme === "dark");
-  }, [currentTheme]);
+    // Force dark mode on initial load
+    setTheme("dark");
+  }, [setTheme]);
 
   // Function to validate url
   const isValidUrl = (url: string): boolean => {
@@ -132,10 +132,8 @@ export default function Home() {
 
               if (isValidUrl(url)) {
                 console.log("Valid URL:", url);
-                // Additional logic for valid URL
               } else {
                 console.log("Invalid URL");
-                // Handle invalid URL
               }
             }}
           />
