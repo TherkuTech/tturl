@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { FormEvent, useEffect, useState } from "react";
-import copy_svg from "../../public/copy-svgrepo-com.svg";
+import copy from "@/assets/copy.svg"
 import axios from "axios";
 import Spinner from "@/components/Spinner";
 import toast, { Toaster } from "react-hot-toast";
@@ -140,7 +140,7 @@ export default function Home() {
               type="button"
             >
               <Image
-                src={copy_svg}
+                src={copy}
                 alt="copy"
                 className="h-5 w-5 dark:invert"
               />

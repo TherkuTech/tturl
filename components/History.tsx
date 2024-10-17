@@ -5,7 +5,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "next-themes";
 import { MdDelete } from "react-icons/md";
 import { Modal, Box, Button, Typography } from "@mui/material";
+import Image from "next/image";
 import useLocalStorage from "../hooks/useLocalStorage"; // Import the custom hook
+import preview from "@/assets/preview.svg"
+import copy from "@/assets/copy.svg"
+import toast from "react-hot-toast";
 
 interface UrlObject {
   shortenedUrl: string;
@@ -16,18 +20,28 @@ const History = () => {
   const { storedUrls, removeUrl } = useLocalStorage("urlList"); // Use the custom hook
   const { systemTheme, theme } = useTheme();
   const currentTheme = theme === "dark" ? systemTheme : theme;
+  const [client, setClient] = useState(false);
 
   const [darkMode, setDarkMode] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [urlToDelete, setUrlToDelete] = useState<string | null>(null); // Store URL to delete
 
-  useEffect(() => {
-    setDarkMode(currentTheme === "dark");
-  }, [currentTheme]);
-
   const handlePreview = (url: string) => {
     const fullUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${url}`;
     window.open(fullUrl, "_blank");
+  };
+
+  useEffect(()=>{
+    setClient(true)
+  },[])
+
+  const copyToClipboard = (shortenedUrl : string) => {
+    if (!shortenedUrl) return;
+    navigator.clipboard.writeText(
+      `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${shortenedUrl}`
+    );
+    toast.success("Copied to clipboard");
+
   };
 
   // Utility function to truncate long URLs
@@ -77,9 +91,11 @@ const History = () => {
     closeModal(); // Close the modal
   };
 
+  if (!client) return null;
+
   return (
-    <div className="mt-12 sm:w-[90%] w-full m-auto">
-      <div className="flex justify-between items-center">
+    <div className="mt-6 sm:w-[90%] w-full m-auto">
+      <div className="flex justify-between items-center mb-2">
         <h1 className="text-4xl font-medium mb-4 overflow-hidden pl-2">
           History
         </h1>
@@ -107,38 +123,38 @@ const History = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.8 }}
-                className={`w-full mb-4 pl-6 pr-3 py-2 flex items-center justify-between ${
-                  darkMode
-                    ? "text-white bg-gray-800"
-                    : "text-black bg-neutral-400/45 "
+                className={`w-full mb-4 pl-6 pr-3 py-2 flex items-center justify-between ${ "text-white bg-gray-800"
                 } rounded-2xl outline-none focus:ring-2 focus:ring-blue-500`}
               >
-                <div className="p-4">
+                <div className="p-2">
+                  <p className="text-sm font-medium text-[#c0c0c0] truncate w-[70%]">
+                    {urlObj.longUrl}
+                  </p>
                   <p className="text-sm font-medium text-white">
                     <span className="font-bold text-base text-gradient bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500 mb-8 pb-4">
                       Shortened URL:
                     </span>{" "}
                     {process.env.NEXT_PUBLIC_FRONTEND_URL}/{urlObj.shortenedUrl}
                   </p>
-                  <p className="text-sm font-medium text-white">
-                    <span className="font-semibold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500 mb-8 pb-4">
-                      Original URL:
-                    </span>{" "}
-                    {truncateUrl(urlObj.longUrl)}
-                  </p>
                 </div>
-                <button
-                  className="my-1 px-6 py-2 bg-blue-600 dark:bg-blue-700 rounded-full text-white hover:bg-blue-500 dark:hover:bg-blue-600"
-                  type="submit"
-                  onClick={() => handlePreview(urlObj.shortenedUrl)}
-                >
-                  Preview
-                </button>
-                <MdDelete
-                  className="cursor-pointer ml-2 text-2xl text-red-600"
-                  title="delete"
-                  onClick={() => openModal(urlObj.shortenedUrl)}
-                />
+                <div className="flex justify-between w-[120px] items-center">
+                  <button
+                    className="my-1 p-2 bg-blue-600 dark:bg-blue-700 rounded-full text-white hover:bg-blue-500 dark:hover:bg-blue-600"
+                    type="submit"
+                    onClick={() => handlePreview(urlObj.shortenedUrl)} >
+                    <Image src={preview} alt="preview" width={15} height={15} />
+                  </button>
+                  <button
+                    className="my-1 p-2 bg-blue-600 dark:bg-blue-700 rounded-full text-white hover:bg-blue-500 dark:hover:bg-blue-600"
+                    onClick={() => copyToClipboard(urlObj.shortenedUrl)} >
+                    <Image src={copy} alt="copy" width={15} height={15} />
+                  </button>
+                  <MdDelete
+                    className="cursor-pointer text-3xl text-red-600 mr-1"
+                    title="delete"
+                    onClick={() => openModal(urlObj.shortenedUrl)}
+                  />
+                </div>
               </motion.div>
             ))
         ) : (
