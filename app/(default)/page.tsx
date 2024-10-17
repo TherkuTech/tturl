@@ -113,7 +113,7 @@ export default function Home() {
 
       <form onSubmit={handleGenerate}>
         <div className={`mb-3 pl-1 text-${darkMode ? "white/70" : "black/70"}`}>
-          Your shortened URL:
+            Enter the URL to be shortened:
         </div>
         <div className="relative w-full max-w-xl">
           <input
