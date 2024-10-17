@@ -8,18 +8,17 @@ import toast, { Toaster } from "react-hot-toast";
 import "../globals.css";
 import { useTheme } from "next-themes";
 import History from "../components/History";
-
-interface StoredUrl {
-  longUrl: string;
-  shortenedUrl: string;
-}
+import useLocalStorage from "../hooks/useLocalStorage"; // Import the custom hook
 
 export default function Home() {
   const [longUrl, setLongUrl] = useState<string>("");
   const [shortenedUrl, setShortenedUrl] = useState<string | null>(null);
-  const [Loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [isLongUrlEmpty, setIsLongUrlEmpty] = useState<boolean>(false);
   const [copiedToClipboard, setCopiedToClipboard] = useState<boolean>(false);
+
+  // Use the custom hook
+  const { saveUrls } = useLocalStorage("urlList");
 
   const handleGenerate = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -47,31 +46,12 @@ export default function Home() {
       setShortenedUrl(newShortenedUrl);
       toast.success("Your URL has been shortened successfully.");
 
-      // Store the generated short URL with the original long URL in local storage
-      storeUrlInLocalStorage(longUrl, newShortenedUrl);
+      // Store the generated short URL with the original long URL using the custom hook
+      saveUrls({ longUrl, shortenedUrl: newShortenedUrl });
     } catch (err) {
       toast.error("Couldn't generate now. Please try again later");
     }
     setLoading(false);
-  };
-
-  const storeUrlInLocalStorage = (
-    longUrl: string,
-    shortenedUrl: string
-  ): void => {
-    const storedUrlsJSON = localStorage.getItem("urlList");
-    let storedUrls: StoredUrl[] = [];
-
-    if (storedUrlsJSON) {
-      storedUrls = JSON.parse(storedUrlsJSON);
-    }
-
-    const newUrl: StoredUrl = { longUrl, shortenedUrl };
-
-    if (!storedUrls.some((url) => url.shortenedUrl === shortenedUrl)) {
-      const updatedUrls = [...storedUrls, newUrl];
-      localStorage.setItem("urlList", JSON.stringify(updatedUrls));
-    }
   };
 
   const copyToClipboard = () => {
@@ -91,7 +71,7 @@ export default function Home() {
     setTheme("dark");
   }, [setTheme]);
 
-  // Function to validate url
+  // Function to validate URL
   const isValidUrl = (url: string): boolean => {
     const urlPattern = new RegExp(
       "^(https?:\\/\\/)" + // Protocol
@@ -141,7 +121,7 @@ export default function Home() {
             className="relative h-10 w-22 flex justify-center items-center right-0  top-0 my-1 mr-1 px-6 py-2 bg-blue-600 rounded-xl text-white hover:bg-blue-500 transition duration-150"
             type="submit"
           >
-            {Loading ? <Spinner /> : "Shorten Now!"}
+            {loading ? <Spinner /> : "Shorten Now!"}
           </button>
         </div>
 

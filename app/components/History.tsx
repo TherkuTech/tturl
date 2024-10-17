@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "next-themes";
 import { MdDelete } from "react-icons/md";
 import { Modal, Box, Button, Typography } from "@mui/material";
+import useLocalStorage from "../hooks/useLocalStorage"; // Import the custom hook
 
 interface UrlObject {
   shortenedUrl: string;
@@ -12,7 +13,7 @@ interface UrlObject {
 }
 
 const History = () => {
-  const [storedUrls, setStoredUrls] = useState<UrlObject[]>([]); // Initialize as empty array with proper typing
+  const { storedUrls, removeUrl } = useLocalStorage("urlList"); // Use the custom hook
   const { systemTheme, theme } = useTheme();
   const currentTheme = theme === "dark" ? systemTheme : theme;
 
@@ -21,24 +22,8 @@ const History = () => {
   const [urlToDelete, setUrlToDelete] = useState<string | null>(null); // Store URL to delete
 
   useEffect(() => {
-    if (currentTheme === "dark") {
-      setDarkMode(true);
-    } else {
-      setDarkMode(false);
-    }
+    setDarkMode(currentTheme === "dark");
   }, [currentTheme]);
-
-  // Fetch URLs from localStorage when the component mounts
-  useEffect(() => {
-    getUrls();
-  }, []);
-
-  const getUrls = () => {
-    const storedUrlsJSON = localStorage.getItem("urlList");
-    if (storedUrlsJSON) {
-      setStoredUrls(JSON.parse(storedUrlsJSON));
-    }
-  };
 
   const handlePreview = (url: string) => {
     const fullUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${url}`;
@@ -66,12 +51,7 @@ const History = () => {
 
       const result = await response.json();
       if (!result.error) {
-        const storedUrls = JSON.parse(localStorage.getItem("urlList") || "[]");
-        const updatedUrls = storedUrls.filter(
-          (urlObj: { shortenedUrl: string }) => urlObj.shortenedUrl !== shortUrl
-        );
-        localStorage.setItem("urlList", JSON.stringify(updatedUrls));
-        getUrls();
+        removeUrl(shortUrl); // Use the custom hook to update stored URLs
       } else {
         console.error(result.message);
       }
@@ -107,8 +87,7 @@ const History = () => {
           className="h-10 w-30 right-0 top-0 my-1 mr-1 px-6 py-2 bg-blue-600 dark:bg-blue-700 rounded-xl text-white hover:bg-blue-500 dark:hover:bg-blue-600 mb-3"
           type="submit"
           onClick={() => {
-            localStorage.clear();
-            setStoredUrls([]); // Clear the state as well
+            localStorage.removeItem("urlList"); // Clear only the relevant item
             window.location.reload();
           }}
         >
@@ -121,7 +100,7 @@ const History = () => {
           storedUrls
             .slice() // Create a copy of the array to avoid mutating the original state
             .reverse() // Reverse the array order
-            .map((urlObj, index) => (
+            .map((urlObj: UrlObject, index: number) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: -20 }}
@@ -181,16 +160,16 @@ const History = () => {
             p: 4,
           }}
         >
-        
+
           <Typography
             id="modal-modal-description"
             className="text-black text-center"
-            
+
           >
             Are you sure you want to delete this URL?
           </Typography>
           <Box className="flex justify-around mt-4">
-            
+
             <Button variant="outlined" color="secondary" onClick={closeModal}>
               Cancel
             </Button>
