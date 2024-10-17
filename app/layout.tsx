@@ -22,12 +22,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>{/* ... (head content remains unchanged) */}</head>
-      <body className={`${inter.className} flex flex-col min-h-screen bg-[url('../assets/bg.svg')]`}>
-          <div className="fixed inset-0 z-0">
-              {/* This empty fragment ensures the children prop is provided */}
-          </div>
-          <div className="relative z-10 flex flex-col min-h-screen">
-            <main className="flex-grow">{children}</main>
+      <body className={`${inter.className} flex flex-col min-h-screen bg-cover bg-[url('../assets/bg.svg')]`}>
+          <div className="">
+            <main className="max-w-[600px] w-full mx-auto">{children}</main>
           </div>
       </body>
     </html>
