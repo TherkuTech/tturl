@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="flex justify-center items-center bg-[#ece9e4]">
+    <div className="flex justify-center items-center">
       {children}
     </div>
   );

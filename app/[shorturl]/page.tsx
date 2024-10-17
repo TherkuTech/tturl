@@ -44,7 +44,7 @@ const Page = ({ params }: { params: { shorturl: string } }) => {
   }, [fetchUrl]);
 
   return (
-    <div className="h-screen w-screen flex justify-center items-center text-black bg-[#f4f5f6] relative">
+    <div className="h-screen w-screen flex justify-center items-center text-black relative">
       {!longUrl.needToLoad && !longUrl.isValid ? (
         <div className="text-center max-w-md mx-auto">
           <h1 className="text-3xl font-bold mb-4">Oops! Page Not Found</h1>
