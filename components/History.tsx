@@ -78,10 +78,10 @@ const History = () => {
   };
 
   return (
-    <div className="mt-12 overflow-y-scroll h-[200px] p-3">
-      <div className="flex justify-between">
-        <h1 className="text-3xl font-bold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500 mb-4 overflow-hidden">
-          History ;)
+    <div className="mt-12 sm:w-[90%] w-full m-auto">
+      <div className="flex justify-between items-center">
+        <h1 className="text-4xl font-medium mb-4 overflow-hidden pl-2">
+          History
         </h1>
         <button
           className="h-10 w-30 right-0 top-0 my-1 mr-1 px-6 py-2 bg-blue-600 dark:bg-blue-700 rounded-xl text-white hover:bg-blue-500 dark:hover:bg-blue-600 mb-3"
@@ -142,7 +142,7 @@ const History = () => {
               </motion.div>
             ))
         ) : (
-          <p className="text-gray-500">No URLs found in history.</p>
+          <p className="text-gray-500 pl-2">No URLs found in history.</p>
         )}
       </AnimatePresence>
 
