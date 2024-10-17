@@ -1,7 +1,7 @@
 "use client";
 import Spinner from "@/components/Spinner";
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Filler from "@/components/Filler";
 import Link from "next/link";
@@ -18,7 +18,7 @@ const Page = ({ params }: { params: { shorturl: string } }) => {
   });
   const router = useRouter();
 
-  const fetchUrl = async () => {
+  const fetchUrl = useCallback(async () => {
     try {
       const response = await axios.get(
         `api/urlshortener?shortUrl=${params.shorturl}`
@@ -37,18 +37,18 @@ const Page = ({ params }: { params: { shorturl: string } }) => {
       console.log(err.message);
       setLongUrl({ isValid: false, needToLoad: false });
     }
-  };
+  }, [params.shorturl]);
 
   useEffect(() => {
     fetchUrl();
-  }, []);
+  }, [fetchUrl]);
 
   return (
     <div className="h-screen w-screen flex justify-center items-center text-black bg-[#f4f5f6] relative">
       {!longUrl.needToLoad && !longUrl.isValid ? (
         <div className="text-center max-w-md mx-auto">
           <h1 className="text-3xl font-bold mb-4">Oops! Page Not Found</h1>
-          <p className="mb-6">The short URL you're trying to access doesn't exist or has expired. Don't worry, it happens to the best of us!</p>
+          <p className="mb-6">The short URL you&apos;re trying to access doesn&apos;t exist or has expired. Don&apos;t worry, it happens to the best of us!</p>
           <div className="flex justify-center space-x-4">
             <Link href="/" className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
               Go to Homepage
@@ -65,10 +65,10 @@ const Page = ({ params }: { params: { shorturl: string } }) => {
         <Filler />
       )}
       <div className="absolute bottom-2 flex gap-2">
-        <div className=" opacity-50">
+        <div className="opacity-50">
           TTurl is an open-source project of
         </div>
-        <Link href="https://github.com/TherkuTech/tturl" className=" text-blue-700">Therku Tech</Link>
+        <Link href="https://github.com/TherkuTech/tturl" className="text-blue-700">Therku Tech</Link>
       </div>
     </div>
   );

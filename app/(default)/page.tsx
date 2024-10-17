@@ -8,6 +8,7 @@ import toast, { Toaster } from "react-hot-toast";
 import "../globals.css";
 import { useTheme } from "next-themes";
 import History from "../components/History";
+import useLocalStorage from "../hooks/useLocalStorage";
 import QrCode from "qrcode";
 
 interface StoredUrl {
@@ -34,7 +35,6 @@ export default function Home() {
             toast.error("Please enter a valid URL");
             return;
         }
-
         try {
             const response = await axios.post(
                 "api/urlshortener",
