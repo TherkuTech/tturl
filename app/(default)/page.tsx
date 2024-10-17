@@ -7,8 +7,7 @@ import Spinner from "@/components/Spinner";
 import toast, { Toaster } from "react-hot-toast";
 import "../globals.css";
 import { useTheme } from "next-themes";
-import History from "../components/History";
-import useLocalStorage from "../hooks/useLocalStorage"; // Import the custom hook
+import useLocalStorage from "../../hooks/useLocalStorage"; // Import the custom hook
 
 export default function Home() {
   const [longUrl, setLongUrl] = useState<string>("");
@@ -166,7 +165,6 @@ export default function Home() {
         </div>
         <Toaster position="top-right" />
       </form>
-      <History />
     </div>
   );
 }

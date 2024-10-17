@@ -1,53 +1,22 @@
-"use client";
-import { useTheme } from "next-themes";
-import ThemeSwitcher from "./Themeswitcher";
 import Image from "next/image";
-import logo from "../../public/assests/logo.png";
+import logo from "../../assets/logo.png";
+import Link from "next/link";
 
 const Navbar = () => {
-  const { theme, systemTheme } = useTheme();
-  const currentTheme = theme === "system" ? systemTheme : theme;
-
-  const handleLogoClick = () => {
-    const url = "https://github.com/muruga21";
-    window.open(url);
-  };
-
-  const handleContribute = () => {
-    const url = "https://github.com/TherkuTech/tturl";
-    window.open(url);
-  };
 
   return (
-    <div
-      className={`z-50 absolute w-screen border-gray-800 ${
-        currentTheme === "dark" ? "bg-neutral-900" : "bg-custom-gradient"
-      }`}
-    >
-      <header className="flex justify-between items-center py-6 px-12">
-        <div className="text-3xl font-bold text-gradient flex justify-center items-center gap-5 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-blue-500 dark:from-purple-500 dark:to-green-500">
-          <div onClick={handleLogoClick} className="cursor-pointer">
-            <Image
-              src={logo}
-              alt="logo"
-              width={40}
-              height={40}
-              className="rounded-lg"
-            />
-          </div>
-          <h2>TTURL</h2>
+    <div className="relative">
+      <div className="fixed top-4 left-0 right-0 mx-auto w-[90%] sm:max-w-[550px] bg-white text-black p-2 rounded-xl shadow-sm">
+        <div className="flex items-center justify-between transition duration-500">
+          <Link className="flex items-center gap-2" href="/">
+            <Image src={logo} alt="logo" className="h-[30px] w-[30px] rounded-full" />
+            <div className="font-semibold">TTURL</div>
+          </Link>
+          <Link className="font-semibold pr-4 text-[#c0c0c0] hover:text-[#333]" href={"https://github.com/TherkuTech/tturl"}>
+            Github
+          </Link>
         </div>
-
-        <div className="flex gap-5 justify-center items-center ">
-          <ThemeSwitcher />
-          <button
-            className="px-6 py-3 w-fit h-fit bg-gradient-to-r from-pink-500 to-blue-500 dark:from-purple-500 dark:to-green-500 rounded-md font-medium text-sm text-white"
-            onClick={handleContribute}
-          >
-            Contribute
-          </button>
-        </div>
-      </header>
+      </div>
     </div>
   );
 };
