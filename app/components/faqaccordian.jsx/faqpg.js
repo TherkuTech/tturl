@@ -1,10 +1,10 @@
-const accordian = document.querySelectorAll('.accordian');
+const accordion = document.querySelectorAll('.accordion');
 
-accordian.forEach((accordian) => {
-    const icon = accordian.querySelector('.icon');
-    const answer = accordian.querySelector('.answer');
+accordion.forEach((accordion) => {
+    const icon = accordion.querySelector('.icon');
+    const answer = accordion.querySelector('.answer');
 
-    accordian.addEventListener('click', () => {
+    accordion.addEventListener('click', () => {
         if (icon.classList.contains('active')) {
             icon.classList.remove('active');
             answer.style.maxHeight = null;
