@@ -1,16 +1,32 @@
-const accordion = document.querySelectorAll('.accordion');
+import React, { useState } from 'react';
+import './FAQAccordion.css'; 
 
-accordion.forEach((accordion) => {
-    const icon = accordion.querySelector('.icon');
-    const answer = accordion.querySelector('.answer');
+const FAQAccordion = ({ faqs }) => {
+    
+    const [activeIndex, setActiveIndex] = useState(null);
 
-    accordion.addEventListener('click', () => {
-        if (icon.classList.contains('active')) {
-            icon.classList.remove('active');
-            answer.style.maxHeight = null;
-        } else {
-            icon.classList.add('active');
-            answer.style.maxHeight = answer.scrollHeight + 'px';
-        }
-    });
-});
+    const handleToggle = (index) => {
+        // If the clicked index is already active, collapse it, otherwise open it
+        setActiveIndex(activeIndex === index ? null : index);
+    };
+
+    return (
+        <div className="accordion-container">
+            {faqs.map((faq, index) => (
+                <div className="accordion" key={index}>
+                    <div className="icon" onClick={() => handleToggle(index)}>
+                        {activeIndex === index ? '-' : '+'} {/* Toggle icon */}
+                    </div>
+                    <div className="question" onClick={() => handleToggle(index)}>
+                        {faq.question}
+                    </div>
+                    <div className="answer" style={{ maxHeight: activeIndex === index ? `${faq.answer.length * 2}rem` : '0' }}>
+                        {faq.answer}
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
+};
+
+export default FAQAccordion;
