@@ -82,12 +82,12 @@ export function Home() {
 
   // Function to validate URL
   const isValidUrl = (url: string): boolean => {
-    const urlPattern = new RegExp(
-      "^(https?:\\/\\/)" + // Protocol
-      "([a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}|\\[[0-9a-fA-F:.]+\\])", // Domain
-      "i"
-    );
-    return !!urlPattern.test(url);
+    try {
+      new URL(url);
+      return true;
+    } catch {
+      return false;
+    }
   };
 
   return (
