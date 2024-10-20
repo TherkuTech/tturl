@@ -1,4 +1,5 @@
 // hooks/useLocalStorage.ts
+"use client"
 import { useState, useEffect } from 'react';
 
 interface StoredUrl {
@@ -9,7 +10,7 @@ interface StoredUrl {
 const useLocalStorage = (key: string) => {
   const [storedUrls, setStoredUrls] = useState<StoredUrl[]>(() => {
     try {
-      const stored = localStorage.getItem(key);
+      const stored = window.localStorage.getItem(key);
       return stored ? JSON.parse(stored) : [];
     } catch (error) {
       console.error("Error reading local storage:", error);
@@ -20,7 +21,7 @@ const useLocalStorage = (key: string) => {
   const saveUrls = (newUrl: StoredUrl) => {
     const updatedUrls = [...storedUrls, newUrl];
     setStoredUrls(updatedUrls);
-    localStorage.setItem(key, JSON.stringify(updatedUrls));
+    window.localStorage.setItem(key, JSON.stringify(updatedUrls));
   };
 
   const updateUrl = (shortenedUrl: string, longUrl: string) => {
@@ -28,18 +29,18 @@ const useLocalStorage = (key: string) => {
       url.shortenedUrl === shortenedUrl ? { longUrl, shortenedUrl } : url
     );
     setStoredUrls(updatedUrls);
-    localStorage.setItem(key, JSON.stringify(updatedUrls));
+    window.localStorage.setItem(key, JSON.stringify(updatedUrls));
   };
 
   const removeUrl = (shortenedUrl: string) => {
     const updatedUrls = storedUrls.filter(url => url.shortenedUrl !== shortenedUrl);
     setStoredUrls(updatedUrls);
-    localStorage.setItem(key, JSON.stringify(updatedUrls));
+    window.localStorage.setItem(key, JSON.stringify(updatedUrls));
   };
 
   const clearUrls = () => {
     setStoredUrls([]);
-    localStorage.removeItem(key);
+    window.localStorage.removeItem(key);
   };
 
   return { storedUrls, saveUrls, updateUrl, removeUrl, clearUrls };

@@ -9,13 +9,27 @@ import "../globals.css";
 import { useTheme } from "next-themes";
 import useLocalStorage from "../../hooks/useLocalStorage"; // Import the custom hook
 import History from "@/components/History";
+import SessionWrapper from "@/components/SessionWrapper";
+import {useSession} from "next-auth/react"
 
-export default function Home() {
+export default function Page () {
+  return (
+    <SessionWrapper><Home/></SessionWrapper>
+  )
+}
+
+export function Home() {
+
   const [longUrl, setLongUrl] = useState<string>("");
   const [shortenedUrl, setShortenedUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [isLongUrlEmpty, setIsLongUrlEmpty] = useState<boolean>(false);
   const [copiedToClipboard, setCopiedToClipboard] = useState<boolean>(false);
+  const { data: session, status } = useSession();
+  useEffect(()=>{
+    console.log("session",session)
+    console.log("status",status)
+  },[session])
 
   // Use the custom hook
   const { saveUrls } = useLocalStorage("urlList");
