@@ -123,14 +123,14 @@ const History = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.8 }}
-                className={`w-full mb-4 pl-6 pr-3 py-2 flex items-center justify-between ${ "text-white bg-gray-800"
+                className={`w-full mb-4 pl-6 pr-3 py-2 flex items-center justify-between ${ "text-black bg-[#D1D5DE]"
                 } rounded-2xl outline-none focus:ring-2 focus:ring-blue-500`}
               >
                 <div className="p-2">
-                  <p className="text-sm font-medium text-[#c0c0c0] truncate w-[70%]">
+                  <p className="text-sm font-medium text-black truncate w-[70%]">
                     {urlObj.longUrl}
                   </p>
-                  <p className="text-sm font-medium text-white">
+                  <p className="text-sm font-medium text-black">
                     <span className="font-bold text-base text-gradient bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500 mb-8 pb-4">
                       Shortened URL:
                     </span>{" "}

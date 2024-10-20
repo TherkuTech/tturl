@@ -97,7 +97,7 @@ export function Home() {
           <div className={` pl-1 text-${"black/70"} text-lg sm:text-2xl w-full`}>
             Enter the URL to be shortened :
           </div>
-          <div className="flex w-full h-12 text-lg rounded-xl outline-none focus:ring-2 focus:ring-blue-500 text-white/70 bg-gray-800 placeholder-gray-400 ">
+          <div className="flex w-full h-12 text-lg rounded-xl outline-none focus:ring-2 focus:ring-blue-500 text-black bg-gray-800 placeholder-gray-400 ">
             <input
               type="url"
               placeholder="Enter the link here"
