@@ -18,7 +18,7 @@ export default function Page () {
   )
 }
 
-export function Home() {
+function Home() {
 
   const [longUrl, setLongUrl] = useState<string>("");
   const [shortenedUrl, setShortenedUrl] = useState<string | null>(null);
