@@ -6,7 +6,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export const authOptions = {
+export default NextAuth ({
   adapter: PrismaAdapter(prisma),
   providers: [
     GithubProvider({
@@ -35,14 +35,16 @@ export const authOptions = {
     }),
   ],
   callbacks :{
-    async jwt(token: { id: any; }, user: { id: any; }) {
+    async jwt({ token, user }: { token: any; user: any; }) {
       if (user) {
         token.id = user.id;
       }
       return token;
     },
-    async session(session: { id: any; }, user: { id: any; }) {
-      session.id = user.id;
+    async session({ session, token, user }: { session: any; token: any; user: any; }) {
+      if (user) {
+        session.id = user.id;
+      }
       return session;
     },
   },
@@ -50,5 +52,5 @@ export const authOptions = {
     strategy: 'database',
     maxAge: 7 * 24 * 60 * 60,
   },
-}
+})
 
