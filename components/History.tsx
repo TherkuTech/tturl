@@ -126,8 +126,8 @@ const History = () => {
                 className={`w-full mb-4 pl-6 pr-3 py-2 flex items-center justify-between ${ "text-black bg-[#D1D5DE]"
                 } rounded-2xl outline-none focus:ring-2 focus:ring-blue-500`}
               >
-                <div className="p-2">
-                  <p className="text-sm font-medium text-black truncate w-[70%]">
+                <div className="p-2 max-w-[400px] truncate">
+                  <p className="text-sm font-medium text-black truncate max-w-[300px]">
                     {urlObj.longUrl}
                   </p>
                   <p className="text-sm font-medium text-black">
