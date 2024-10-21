@@ -12,15 +12,17 @@ model User {
   email    String    @unique
   password String
   urls     Url[]     @relation("UserUrls")
-  sessions Sessions[]
+  sessions Session[]
 }
 
-model Sessions {
+model Session {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   user User @relation(fields: [userId], references: [id])
+  sessionToken String   @unique
   userId String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  expires     DateTime
 }
 
 model Url {
