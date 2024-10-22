@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 const handler = async ( req : NextApiRequest, res : NextApiResponse) => {
     if(req.method === "POST"){
         const receivedSessionID = req.body?.session;
-        const session = prisma.session.findFirst({
+        const session = await prisma.session.findFirst({
             where : {
                 id : receivedSessionID
             }
@@ -16,7 +16,13 @@ const handler = async ( req : NextApiRequest, res : NextApiResponse) => {
         if (!session) {
             return res.status(400).json({error:true, message:"session not found"});
         }
+        const isValid = await verifySession(session.sessionToken)
+        if(!isValid){
+            res.status(403).json({error:true, message:"Session expired"})
+        }
+        return res.status(200).json({error:false, message:"Session is valid"})
     }
+    return res.status(400).json({error:true, message:"Invalid request method"})
 }
 
 export default handler;
