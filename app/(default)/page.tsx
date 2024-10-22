@@ -94,7 +94,7 @@ function Home() {
       const newShortenedUrl = response.data.data; // Get the shortened URL from response
       setShortenedUrl(newShortenedUrl);
       toast.success("Your URL has been shortened successfully.");
-      QRCode.toDataURL(newShortenedUrl,{ scale: 20 }, (err, url) => {
+      QRCode.toDataURL(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/${newShortenedUrl}`,{ scale: 20 }, (err, url) => {
         if (err) {
           console.error(err);
           return;
