@@ -11,7 +11,7 @@ model User {
   id       String    @id @default(auto()) @map("_id") @db.ObjectId
   email    String    @unique
   password String
-  // urls     Url[]     @relation("UserUrls")
+  urls     Url[]     @relation("UserUrls")
   sessions Session[]
 }
 
@@ -22,7 +22,6 @@ model Session {
   userId String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  expires     DateTime
 }
 
 model Url {
@@ -32,6 +31,6 @@ model Url {
   deleted   Boolean   @default(false)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  // user      User      @relation("UserUrls", fields: [userId], references: [id])
-  // userId    String    @db.ObjectId
+  user      User?      @relation("UserUrls", fields: [userId], references: [id])
+  userId    String?    @db.ObjectId
 }

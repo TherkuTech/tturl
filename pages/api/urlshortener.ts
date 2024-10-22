@@ -31,11 +31,6 @@ export default async function handler(
         data: {
           longUrl,
           shortUrl,
-          // user: {
-          //   connect: {
-          //     id: (req.body.userId) ? req.body.userId : "",
-          //   },
-          // },
         },
       });
       return res.status(200).json({ error: false, data: newUrl.shortUrl });
