@@ -11,6 +11,8 @@ import useLocalStorage from "../../hooks/useLocalStorage"; // Import the custom 
 import History from "@/components/History";
 import SessionWrapper from "@/components/SessionWrapper";
 import {useSession} from "next-auth/react"
+import Cookies from 'js-cookie';
+import QRCode from 'qrcode';
 
 export default function Page () {
   return (
@@ -26,10 +28,42 @@ function Home() {
   const [isLongUrlEmpty, setIsLongUrlEmpty] = useState<boolean>(false);
   const [copiedToClipboard, setCopiedToClipboard] = useState<boolean>(false);
   const { data: session, status } = useSession();
+  const [isLogged, setIsLogged] = useState(false);
+  const [qr, setQr] = useState('');
+
   useEffect(()=>{
-    console.log("session",session)
-    console.log("status",status)
+    if(session === null){
+      return;
+    }
+    if(session === undefined){
+      IsValidUser();
+      return;
+    }
+    else {
+      setIsLogged(true);
+      return;
+    }
   },[session])
+
+  const IsValidUser = async() =>{
+    try{
+      const response = await axios.post("api/user",{session: Cookies.get("session")});
+      if(response?.data.error === true){
+        setIsLogged(false)
+        return;
+      }
+      setIsLogged(true);
+      return;
+    }
+    catch(err){
+      // toast.error("something went wrong ! please try again later");
+      console.log(err);
+    }
+  }
+
+  useEffect(()=>{
+    console.log(isLogged)
+  },[isLogged])
 
   // Use the custom hook
   const { saveUrls } = useLocalStorage("urlList");
@@ -37,6 +71,7 @@ function Home() {
   const handleGenerate = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
+    setQr("");
 
     if (!longUrl || !isValidUrl(longUrl)) {
       setIsLongUrlEmpty(true);
@@ -59,7 +94,13 @@ function Home() {
       const newShortenedUrl = response.data.data; // Get the shortened URL from response
       setShortenedUrl(newShortenedUrl);
       toast.success("Your URL has been shortened successfully.");
-
+      QRCode.toDataURL(newShortenedUrl,{ scale: 20 }, (err, url) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        setQr(url);  // Set the base64 image URL
+      });
       // Store the generated short URL with the original long URL using the custom hook
       saveUrls({ longUrl, shortenedUrl: newShortenedUrl });
     } catch (err) {
@@ -161,9 +202,16 @@ function Home() {
             </button>
           </div>
         </div>
+        { qr !=="" && <div className="flex flex-col gap-3 mt-6">
+            <div className={`pl-1 text-${"black/70"} text-lg sm:text-2xl w-full`}>
+              Your QR Code :
+            </div>
+            <Image src={qr} alt="qr code" width={100} height={100} className="w-full h-full"/>
+          </div>
+        }
         <Toaster position="top-right" />
       </form>
-      <History/>
+      <History isLogged = {isLogged}/>
     </>
   );
 }

@@ -16,7 +16,11 @@ interface UrlObject {
   longUrl: string;
 }
 
-const History = () => {
+interface HistoryProps {
+  isLogged: boolean;
+}
+
+const History = ({isLogged}: HistoryProps) => {
   const { storedUrls, removeUrl } = useLocalStorage("urlList"); // Use the custom hook
   const { systemTheme, theme } = useTheme();
   const currentTheme = theme === "dark" ? systemTheme : theme;
@@ -111,7 +115,7 @@ const History = () => {
         </button>
       </div>
 
-      <AnimatePresence>
+      { isLogged ? <AnimatePresence>
         {storedUrls.length > 0 ? (
           storedUrls
             .slice() // Create a copy of the array to avoid mutating the original state
@@ -160,7 +164,7 @@ const History = () => {
         ) : (
           <p className="text-gray-500 pl-2">No URLs found in history.</p>
         )}
-      </AnimatePresence>
+      </AnimatePresence> : <div className=" text-center text-xl mt-8 text-[#c0c0c0]">SignIn to access history</div> }
 
       {/* Modal for delete confirmation */}
       <Modal open={modalOpen} onClose={closeModal}>
