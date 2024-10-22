@@ -6,7 +6,7 @@ const Navbar = () => {
 
   return (
     <div className="relative">
-      <div className="fixed top-8 left-0 right-0 mx-auto w-[90%] sm:w-full sm:max-w-[550px] bg-white text-black p-2 rounded-xl shadow-sm">
+      <div className="fixed z-20 top-8 left-0 right-0 mx-auto w-[90%] sm:w-full sm:max-w-[550px] bg-white text-black p-2 rounded-xl shadow-sm">
         <div className="flex items-center justify-between transition duration-500">
           <Link className="flex items-center gap-2" href="/">
             <Image src={logo} alt="logo" className="h-[30px] w-[30px] rounded-full" />
