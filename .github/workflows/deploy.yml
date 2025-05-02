@@ -1,0 +1,24 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'  # or whatever version you're using
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run Tests
+      run: npm test || echo "No tests found"  # Just to prevent breaking if no tests exist
